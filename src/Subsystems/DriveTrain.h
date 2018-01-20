@@ -14,11 +14,13 @@ private:
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
 	WPI_TalonSRX m_leftFront{leftfrontDrive};
+	WPI_TalonSRX m_leftMiddle{leftmiddleDrive};
 	WPI_TalonSRX m_leftRear{leftrearDrive};
 	WPI_TalonSRX m_rightFront{rightfrontDrive};
+	WPI_TalonSRX m_rightMiddle{rightmiddleDrive};
 	WPI_TalonSRX m_rightRear{rightrearDrive};
-	frc::SpeedControllerGroup m_left{m_leftFront, m_leftRear};
-	frc::SpeedControllerGroup m_right{m_rightFront, m_rightRear};
+	frc::SpeedControllerGroup m_left{m_leftFront, m_leftMiddle, m_leftRear};
+	frc::SpeedControllerGroup m_right{m_rightFront, m_rightMiddle, m_rightRear};
 	frc::DifferentialDrive m_robotDrive{m_left, m_right};
 
 

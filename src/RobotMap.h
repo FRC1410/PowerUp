@@ -27,12 +27,14 @@
 //DriveBase motors
 const int leftfrontDrive = 1;
 const int rightfrontDrive = 2;
-const int leftrearDrive = 3;
-const int rightrearDrive = 4;
+const int leftmiddleDrive = 3;
+const int rightmiddleDrive = 4;
+const int leftrearDrive = 5;
+const int rightrearDrive = 6;
 
 //CubeClaw motors
-const int claw_left_wheel_id = 5;
-const int claw_right_wheel_id = 6;
+const int claw_left_wheel_id = 7;
+const int claw_right_wheel_id = 8;
 
 const int tankLeftAxis = 1;
 const int tankRightAxis = 5;
