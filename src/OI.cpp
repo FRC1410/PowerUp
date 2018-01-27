@@ -59,6 +59,14 @@ double OI::GetOperatorAxis(int axis){
 	return (InputShape((float)operator_controller.GetRawAxis(axis)));
 }
 
+double OI::GetDriveDirection() {
+	return InputShape((float)driver_controller.GetDirectionDegrees());
+}
+
+double OI::GetDriveMagnitude() {
+	return InputShape((float)driver_controller.GetMagnitude());
+}
+
 double OI::GetOperatorButton(int button){
 	return operator_controller.GetRawButton(button);
 }

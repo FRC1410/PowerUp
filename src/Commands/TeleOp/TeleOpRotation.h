@@ -8,7 +8,7 @@ class TeleOpRotation : public frc::Command {
 public:
 	TeleOpRotation();
 	void Initialize();
-	void Execute();
+	void Execute(double s);
 	bool IsFinished();
 	void End();
 	void Interrupted();

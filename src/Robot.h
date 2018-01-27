@@ -10,6 +10,7 @@
 #include <Commands/Command.h>
 #include <IterativeRobot.h>
 #include <SmartDashboard/SendableChooser.h>
+#include <math.h>
 
 
 class Robot : public IterativeRobot {
