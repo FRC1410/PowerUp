@@ -1,39 +1,37 @@
-#include "Drive.h"
+#include "TeleOpRotation.h"
 
 #include "../../Robot.h"
+#include "../../OI.h"
 
-Drive::Drive() {
+
+TeleOpRotation::TeleOpRotation() {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
-	Requires(&Robot::drivetrain);
+	Requires(&Robot::rotator);
 }
 
 // Called just before this Command runs the first time
-void Drive::Initialize() {
+void TeleOpRotation::Initialize() {
 
 }
 
 // Called repeatedly when this Command is scheduled to run
-void Drive::Execute() {
-	//auto& joystick = Robot::oi.GetJoystick();
-	//Robot::drivetrain.TankDrive(joystick.GetRawAxis(1), joystick.GetRawAxis(5));
-	Robot::drivetrain.TankDrive(-1*Robot::oi.GetDriveAxis(tankLeftAxis), -1*Robot::oi.GetDriveAxis(tankRightAxis));
-
-
+void TeleOpRotation::Execute() {
+	Robot::rotator.RotateClaw(Robot::oi.GetOperatorAxis(rotator_axis));
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool Drive::IsFinished() {
+bool TeleOpRotation::IsFinished() {
 	return false;
 }
 
 // Called once after isFinished returns true
-void Drive::End() {
+void TeleOpRotation::End() {
 
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void Drive::Interrupted() {
-
+void TeleOpRotation::Interrupted() {
+End();
 }

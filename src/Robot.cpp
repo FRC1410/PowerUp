@@ -13,6 +13,8 @@
 DriveTrain Robot::drivetrain;
 OI Robot::oi;
 CubeClaw Robot::cubeclaw;
+Elevation Robot::elevation;
+Rotator Robot::rotator;
 
 void Robot::RobotInit() {
 	// Show what command your subsystem is running on the SmartDashboard
