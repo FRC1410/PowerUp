@@ -5,6 +5,8 @@
 #include <OI.h>
 #include <Subsystems/DriveTrain.h>
 #include <Subsystems/CubeClaw.h>
+#include <Subsystems/Elevation.h>
+#include <Subsystems/Rotator.h>
 #include <Commands/Command.h>
 #include <IterativeRobot.h>
 #include <SmartDashboard/SendableChooser.h>
@@ -15,6 +17,8 @@ public:
 	static DriveTrain drivetrain;
 	static OI oi;
 	static CubeClaw cubeclaw;
+	static Elevation elevation;
+	static Rotator rotator;
 
 private:
 

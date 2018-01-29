@@ -1,8 +1,8 @@
+#include <Commands/TeleOp/TeleOpClawWheels.h>
 #include "OI.h"
 
 #include <WPILib.h>
 
-#include "Commands/TeleOp/TeleOpClawWheels.h"
 #include "Commands/TeleOp/TeleOpClawArms.h"
 
 const char inputShape[255] = {
@@ -26,9 +26,9 @@ OI::OI() {
 	ClawWheelsIn = new frc::JoystickButton(&operator_controller, 6);
 	ClawSolenoid = new frc::JoystickButton(&operator_controller, 1);
 
-	ClawWheelsOut->WhileHeld(new TeleOpClawWheels);
-	ClawWheelsIn->WhileHeld(new TeleOpClawWheels);
-	ClawSolenoid->WhenPressed(new TeleOpClawArms);
+	ClawWheelsOut->WhenPressed(new TeleOpClawWheels);
+	ClawWheelsIn->WhenPressed(new TeleOpClawWheels);
+	ClawSolenoid->ToggleWhenPressed(new TeleOpClawArms);
 }
 
 
