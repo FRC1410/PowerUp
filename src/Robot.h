@@ -11,7 +11,6 @@
 #include <IterativeRobot.h>
 #include <SmartDashboard/SendableChooser.h>
 
-
 class Robot : public IterativeRobot {
 public:
 	static DriveTrain drivetrain;

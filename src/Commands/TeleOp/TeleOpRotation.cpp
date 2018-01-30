@@ -17,7 +17,9 @@ void TeleOpRotation::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void TeleOpRotation::Execute() {
-	Robot::rotator.RotateClaw(Robot::oi.GetOperatorAxis(rotator_axis));
+	s = Robot::oi.GetOperatorAxis(rotator_axis);
+	Robot::rotator.RotateClaw((s+pow(s,3)+pow(s,5)+pow(s,7)+pow(s,9)+pow(s,11))/6);
+	//Robot::rotator.RotateClaw(Robot::oi.GetOperatorAxis(rotator_axis));
 }
 
 // Make this return true when this Command no longer needs to run execute()

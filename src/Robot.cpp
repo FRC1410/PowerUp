@@ -1,4 +1,5 @@
 #include "Commands/Auto/AutoTimedDrive.h"
+#include "Commands/Auto/AutoEncodeDrive.h"
 
 #include "Robot.h"
 
@@ -19,12 +20,23 @@ Rotator Robot::rotator;
 void Robot::RobotInit() {
 	// Show what command your subsystem is running on the SmartDashboard
 	auto_choice.AddDefault("Timed Drive Forward (default)", new AutoTimedDrive());
+	auto_choice.AddObject("Encoders Drive Forward", new AutoEncodeDrive());
 	frc::SmartDashboard::PutData("Auto Modes", &auto_choice);
 }
 
 void Robot::AutonomousInit() {
+		std::cout << "auto";
 //		auto_command.reset(auto_choice.GetSelected());
-		auto_command.reset(new AutoTimedDrive());
+		std::string autoSelected = frc::SmartDashboard::GetString("Auto Selector", "Default");
+		if (autoSelected == "Encoders Drive Forward")
+		{
+			auto_command.reset(new AutoEncodeDrive());
+			std::cout << "encoders :)";
+		}
+		else{
+			auto_command.reset(new AutoTimedDrive());
+			std::cout << "timed no fun :(";
+		}
 
 		if (auto_command.get() != nullptr) {
 			auto_command->Start();

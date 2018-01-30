@@ -19,6 +19,8 @@ public:
 	double GetDriveAxis(int axis);
 	double GetOperatorAxis(int axis);
 	double GetOperatorButton(int button);
+	double GetDriveDirection();
+	double GetDriveMagnitude();
 
 private:
 	frc::Joystick driver_controller{0};

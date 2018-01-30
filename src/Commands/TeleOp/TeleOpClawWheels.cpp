@@ -17,11 +17,11 @@ void TeleOpClawWheels::Initialize() {
 void TeleOpClawWheels::Execute() {
 	if (Robot::oi.GetOperatorButton(6)) {
 		Robot::cubeclaw.ClawWheels(0.5, -0.5);
-		} else if (Robot::oi.GetOperatorButton(5)) {
-				Robot::cubeclaw.ClawWheels(-0.3, 0.3);
-		} else {
-				Robot::cubeclaw.ClawWheels(0, 0);
-		}
+	} else if (Robot::oi.GetOperatorButton(5)) {
+		Robot::cubeclaw.ClawWheels(-0.3, 0.3);
+	} else {
+		Robot::cubeclaw.ClawWheels(0, 0);
+	}
 }
 
 // Make this return true when this Command no longer needs to run execute()
