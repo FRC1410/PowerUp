@@ -19,28 +19,30 @@ Rotator Robot::rotator;
 
 void Robot::RobotInit() {
 	// Show what command your subsystem is running on the SmartDashboard
-	auto_choice.AddDefault("Timed Drive Forward (default)", new AutoTimedDrive());
-	auto_choice.AddObject("Encoders Drive Forward", new AutoEncodeDrive());
+	//auto_choice.AddDefault("Timed Drive Forward (default)", new AutoTimedDrive());
+	//auto_choice.AddObject("Encoders Drive Forward", new AutoEncodeDrive());
+	auto_choice.AddDefault("Encoders Drive Forward", new AutoEncodeDrive());
 	frc::SmartDashboard::PutData("Auto Modes", &auto_choice);
 }
 
 void Robot::AutonomousInit() {
-		std::cout << "auto";
-//		auto_command.reset(auto_choice.GetSelected());
-		std::string autoSelected = frc::SmartDashboard::GetString("Auto Selector", "Default");
-		if (autoSelected == "Encoders Drive Forward")
-		{
-			auto_command.reset(new AutoEncodeDrive());
-			std::cout << "encoders :)";
-		}
-		else{
-			auto_command.reset(new AutoTimedDrive());
-			std::cout << "timed no fun :(";
-		}
+//	auto_command.reset(auto_choice.GetSelected());
+	frc::SmartDashboard::PutString("Auto Selection", "Trying to Select Auto");
+	std::string autoSelected = frc::SmartDashboard::GetString("Auto Selector", "Default");
+	auto_command.reset(new AutoEncodeDrive());
+	/*if (autoSelected == "Encoders Drive Forward")
+	{
+		frc::SmartDashboard::PutString("Auto Selected", "Encoders");
+		auto_command.reset(new AutoEncodeDrive());
+	}
+	else {
+		//frc::SmartDashboard::PutString("Auto Selected", "Timed");
+		//auto_command.reset(new AutoTimedDrive());
+	}*/
 
-		if (auto_command.get() != nullptr) {
-			auto_command->Start();
-		}
+	if (auto_command.get() != nullptr) {
+		auto_command->Start();
+	}
 }
 
 void Robot::AutonomousPeriodic() {

@@ -11,8 +11,13 @@ public:
 	void End();
 	void Interrupted();
 private:
-	double d = 0;
-	double m = 0;
+	//Exponential
+
+	/*double d = 0;
+	double m = 0;*/
+
+	//double l = 0;
+	//double r = 0;
 };
 
 #endif  // Drive_H

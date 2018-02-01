@@ -1,5 +1,6 @@
 #include "AutoEncodeDrive.h"
 #include "../../Robot.h"
+#include <SmartDashboard/SmartDashboard.h>
 
 AutoEncodeDrive::AutoEncodeDrive() {
 	// Use Requires() here to declare subsystem dependencies
@@ -9,17 +10,18 @@ AutoEncodeDrive::AutoEncodeDrive() {
 
 // Called just before this Command runs the first time
 void AutoEncodeDrive::Initialize() {
-
+	Robot::drivetrain.ResetEncoder();
 }
 
 // Called repeatedly when this Command is scheduled to run
 void AutoEncodeDrive::Execute() {
 	Robot::drivetrain.TankDrive(0.5, 0.5);
+	frc::SmartDashboard::PutNumber("Encoder Distance", Robot::drivetrain.EncoderDistance());
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool AutoEncodeDrive::IsFinished() {
-	if (Robot::drivetrain.EncoderDistance() >= 12)
+	if (Robot::drivetrain.ReturnDrivenInches(4) >= 12)
 	{
 		return true;
 	}

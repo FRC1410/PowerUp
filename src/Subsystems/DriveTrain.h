@@ -34,6 +34,7 @@ public:
 	void InitDefaultCommand();
 	void TankDrive(double left, double right);
 	double EncoderDistance();
+	float ReturnDrivenInches(float radius);
 	void ResetEncoder();
 };
 
