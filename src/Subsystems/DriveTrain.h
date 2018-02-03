@@ -21,9 +21,6 @@ private:
 	WPI_TalonSRX m_rightMiddle{rightmiddleDrive};
 	WPI_TalonSRX m_rightRear{rightrearDrive};
 
-	frc::Encoder m_EncLeft{0, 1, false, Encoder::k4X};
-	frc::Encoder m_EncRight{2, 3, false, Encoder::k4X};
-
 	frc::SpeedControllerGroup m_left{m_leftFront, m_leftMiddle, m_leftRear};
 	frc::SpeedControllerGroup m_right{m_rightFront, m_rightMiddle, m_rightRear};
 	frc::DifferentialDrive m_robotDrive{m_left, m_right};
@@ -32,9 +29,7 @@ public:
 	DriveTrain();
 	void InitDefaultCommand();
 	void TankDrive(double left, double right);
-	double EncoderDistance();
 	float ReturnDrivenInches(float radius);
-	void ResetEncoder();
 	void ResetEncoders();
 };
 

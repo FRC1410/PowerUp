@@ -6,17 +6,17 @@ class Drive : public frc::Command {
 public:
 	Drive();
 	void Initialize();
-	void Execute(/*double l, double r*/ /*double d, double m*/ /*double x, double y, double d, double m*/);
+	void Execute();
 	bool IsFinished();
 	void End();
 	void Interrupted();
 private:
 	//Exponential
 
-	double d = 0;
+	/*double d = 0;
 	double m = 0;
 	double x = 0;
-	double y = 0;
+	double y = 0;*/
 
 	//double l = 0;
 	//double r = 0;

@@ -13,7 +13,7 @@ public:
 	void End();
 	void Interrupted();
 private:
-	double s = 0;
+	//double s = 0;
 };
 
 #endif  // TeleOpRotation_H

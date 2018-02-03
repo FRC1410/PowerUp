@@ -16,31 +16,6 @@ void DriveTrain::TankDrive(double left, double right) {
 	m_robotDrive.TankDrive(left, right);
 }
 
-void DriveTrain::ResetEncoder() {
-	m_EncLeft.Reset();
-	m_EncRight.Reset();
-}
-
-double DriveTrain::EncoderDistance() {
-	m_EncLeft.SetSamplesToAverage(5);
-	m_EncLeft.SetDistancePerPulse(1.0 / 360.0 /** 2.0 * 3.1415 * 3.0*/);
-	m_EncLeft.SetMinRate(1.0);
-
-	m_EncRight.SetSamplesToAverage(5);
-	m_EncRight.SetDistancePerPulse(1.0 / 360.0 /** 2.0 * 3.1415 * 3.0*/);
-	m_EncRight.SetMinRate(1.0);
-
-	//encoder code from wpi
-	/*sampleEncoder->SetMaxPeriod(.1);
-	sampleEncoder->SetMinRate(10);
-	sampleEncoder->SetDistancePerPulse(5);
-	sampleEncoder->SetReverseDirection(true);
-	sampleEncoder->SetSamplesToAverage(7);*/
-
-	//will need to divide by 2 later
-	return m_EncLeft.GetDistance() + m_EncRight.GetDistance();
-};
-
 float DriveTrain::ReturnDrivenInches(float radius){
 	m_leftMiddle.ConfigSelectedFeedbackSensor(ctre::phoenix::motorcontrol::QuadEncoder, 0, 0);
 	m_rightMiddle.ConfigSelectedFeedbackSensor(ctre::phoenix::motorcontrol::QuadEncoder, 0, 0);
@@ -64,8 +39,6 @@ float DriveTrain::ReturnDrivenInches(float radius){
     float distance_covered = circumference * revolutions;
     SmartDashboard::PutNumber("Distance in Inches", distance_covered);
     return distance_covered;
-	//temp
-	return radius;
 }
 
 void DriveTrain::ResetEncoders() {

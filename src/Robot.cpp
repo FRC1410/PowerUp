@@ -24,7 +24,7 @@ void Robot::RobotInit() {
 	//auto_choice.AddObject("Encoders Drive Forward", new AutoEncodeDrive());
 	//auto_choice.AddObject("Encoders Drive Forward", new AutoEncodeDrive());
 	//auto_choice.AddDefault("Timed Drive Forward", new AutoTimedDrive());
-	std::cin >> choose;
+	//std::cin >> choose;
 	//frc::SmartDashboard::PutData("Choose Auto:", 0);
 	//frc::SmartDashboard::PutData("Auto Modes", &auto_choice);
 }
@@ -33,11 +33,12 @@ void Robot::AutonomousInit() {
 	//auto_command.reset(auto_choice.GetSelected());
 	//frc::SmartDashboard::PutData("rigged", frc::SmartDashboard::GetData("Choose Auto:"));
 	//std::string autoSelected = frc::SmartDashboard::GetString("Auto Modes", "Default");
-	if (choose == 0) {
+	/*if (choose == 0) {
 		auto_command.reset(new AutoTimedDrive());
 	} else {
 		auto_command.reset(new AutoEncodeDrive());
-	}
+	}*/
+	auto_command.reset(new AutoEncodeDrive());
 
 	if (auto_command.get() != nullptr) {
 		auto_command->Start();
