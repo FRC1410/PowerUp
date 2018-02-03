@@ -1,4 +1,5 @@
 #include "Commands/Auto/AutoTimedDrive.h"
+#include "Commands/Auto/AutoEncodeDrive.h"
 
 #include "Robot.h"
 
@@ -15,20 +16,32 @@ OI Robot::oi;
 CubeClaw Robot::cubeclaw;
 Elevation Robot::elevation;
 Rotator Robot::rotator;
+Climber Robot::climber;
 
 void Robot::RobotInit() {
 	// Show what command your subsystem is running on the SmartDashboard
-	auto_choice.AddDefault("Timed Drive Forward (default)", new AutoTimedDrive());
-	frc::SmartDashboard::PutData("Auto Modes", &auto_choice);
+	//auto_choice.AddDefault("Timed Drive Forward (default)", new AutoTimedDrive());
+	//auto_choice.AddObject("Encoders Drive Forward", new AutoEncodeDrive());
+	//auto_choice.AddObject("Encoders Drive Forward", new AutoEncodeDrive());
+	//auto_choice.AddDefault("Timed Drive Forward", new AutoTimedDrive());
+	std::cin >> choose;
+	//frc::SmartDashboard::PutData("Choose Auto:", 0);
+	//frc::SmartDashboard::PutData("Auto Modes", &auto_choice);
 }
 
 void Robot::AutonomousInit() {
-//		auto_command.reset(auto_choice.GetSelected());
+	//auto_command.reset(auto_choice.GetSelected());
+	//frc::SmartDashboard::PutData("rigged", frc::SmartDashboard::GetData("Choose Auto:"));
+	//std::string autoSelected = frc::SmartDashboard::GetString("Auto Modes", "Default");
+	if (choose == 0) {
 		auto_command.reset(new AutoTimedDrive());
+	} else {
+		auto_command.reset(new AutoEncodeDrive());
+	}
 
-		if (auto_command.get() != nullptr) {
-			auto_command->Start();
-		}
+	if (auto_command.get() != nullptr) {
+		auto_command->Start();
+	}
 }
 
 void Robot::AutonomousPeriodic() {

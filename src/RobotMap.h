@@ -36,14 +36,18 @@ const int rightrearDrive = 6;
 const int claw_left_wheel_id = 7;
 const int claw_right_wheel_id = 8;
 
-const int tankLeftAxis = 1;
-const int tankRightAxis = 5;
+
 
 //Elevator motor
 const int elevatorElevation = 9;
-const int elevatorLeftAxis = 1;
+
 
 //Rotator
 const int rotator_motor_1_id = 10;
 const int rotator_motor_2_id = 11;
+
+
+const int tankLeftAxis = 1;
+const int tankRightAxis = 5;
+const int elevatorLeftAxis = 1;
 const int rotator_axis = 5;

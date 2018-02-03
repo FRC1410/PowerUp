@@ -19,19 +19,17 @@ void TeleOpClawArms::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
 void TeleOpClawArms::Execute() {
-	if (Robot::oi.GetOperatorButton(1))
-	{
-				if (toggle == false) {
-					Robot::cubeclaw.GetSolenoid().Set(frc::DoubleSolenoid::kReverse);
-					toggle = true;
-				} else {
-					Robot::cubeclaw.GetSolenoid().Set(frc::DoubleSolenoid::kForward);
-					toggle = false;
-				}while(Robot::oi.GetOperatorButton(1)){};
-	}
-	else{
-				Robot::cubeclaw.GetSolenoid().Set(frc::DoubleSolenoid::kOff);
-	}
+	if (Robot::oi.GetOperatorButton(1)) {
+		if (toggle == false) {
+			Robot::cubeclaw.GetSolenoid().Set(frc::DoubleSolenoid::kReverse);
+			toggle = true;
+		} else {
+			Robot::cubeclaw.GetSolenoid().Set(frc::DoubleSolenoid::kForward);
+			toggle = false;
+		} while(Robot::oi.GetOperatorButton(1)){};
+	}/* else {
+		Robot::cubeclaw.GetSolenoid().Set(frc::DoubleSolenoid::kOff);
+	}*/
 }
 
 // Make this return true when this Command no longer needs to run execute()
