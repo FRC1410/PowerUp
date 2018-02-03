@@ -13,7 +13,7 @@ void Rotator::InitDefaultCommand() {
 }
 
 void Rotator::RotateClaw(double rotate_speed){
-	rotatorMotors.Set(rotate_speed);
+	rotatorMotor.Set(rotate_speed);
 }
 
 // Put methods for controlling this subsystem

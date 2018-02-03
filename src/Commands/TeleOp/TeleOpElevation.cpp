@@ -16,6 +16,7 @@ void TeleOpElevation::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void TeleOpElevation::Execute() {
+	//Robot::elevation.ElevationWheel(Robot::oi.GetOperatorAxis(elevatorLeftAxis));
 	Robot::elevation.ElevationWheel(Robot::oi.GetOperatorAxis(elevatorLeftAxis));
 }
 
@@ -32,5 +33,5 @@ void TeleOpElevation::End() {
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void TeleOpElevation::Interrupted() {
-End();
+	End();
 }

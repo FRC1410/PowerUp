@@ -18,7 +18,7 @@ void CubeClaw::InitDefaultCommand() {
 	SetDefaultCommand(new TeleOpClawArms());
 }
 
-frc::DoubleSolenoid & CubeClaw::GetSolenoid(){
+frc::DoubleSolenoid & CubeClaw::GetSolenoid() {
 	return claw_solenoid;
 }
 

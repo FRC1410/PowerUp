@@ -28,22 +28,25 @@
 const int leftfrontDrive = 1;
 const int rightfrontDrive = 2;
 const int leftmiddleDrive = 3;
-const int rightmiddleDrive = 4;
-const int leftrearDrive = 5;
-const int rightrearDrive = 6;
+const int rightmiddleDrive = 6;
+const int leftrearDrive = 7;
+const int rightrearDrive = 8;
 
 //CubeClaw motors
-const int claw_left_wheel_id = 7;
-const int claw_right_wheel_id = 8;
+const int claw_left_wheel_id = 5;
+const int claw_right_wheel_id = 4;
 
-const int tankLeftAxis = 1;
-const int tankRightAxis = 5;
+
 
 //Elevator motor
 const int elevatorElevation = 9;
-const int elevatorLeftAxis = 1;
+
 
 //Rotator
-const int rotator_motor_1_id = 10;
-const int rotator_motor_2_id = 11;
+const int rotator_motor_id = 10;
+
+
+const int tankLeftAxis = 1;
+const int tankRightAxis = 5;
+const int elevatorLeftAxis = 1;
 const int rotator_axis = 5;

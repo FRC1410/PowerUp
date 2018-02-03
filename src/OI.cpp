@@ -4,9 +4,10 @@
 #include <WPILib.h>
 
 #include "Commands/TeleOp/TeleOpClawArms.h"
+#include "Commands/TeleOp/TeleOpClimb.h"
 
 const char inputShape[255] = {
-			0,1,3,4,5,6,7,9,10,11,12,13,15,16,17,18,19,21,22,23,24,25,27,28,29,30,31,
+					0,1,3,4,5,6,7,9,10,11,12,13,15,16,17,18,19,21,22,23,24,25,27,28,29,30,31,
  	        33,34,35,36,37,38,40,41,42,43,44,46,47,48,49,50,52,53,54,55,56,58,59,60,61,62,
  	        64,65,66,67,68,70,71,72,73,74,76,77,78,79,80,82,83,84,85,86,88,89,90,91,92,94,
  	        95,96,97,98,100,101,102,103,104,106,107,108,109,110,112,113,114,115,116,117,
@@ -25,10 +26,15 @@ OI::OI() {
 	ClawWheelsOut = new frc::JoystickButton(&operator_controller, 5);
 	ClawWheelsIn = new frc::JoystickButton(&operator_controller, 6);
 	ClawSolenoid = new frc::JoystickButton(&operator_controller, 1);
+	ClimbingSolenoid = new frc::JoystickButton(&operator_controller, 3);
+	ClimbingRotatorSolenoid = new frc::JoystickButton(&operator_controller, 4);
 
 	ClawWheelsOut->WhenPressed(new TeleOpClawWheels);
 	ClawWheelsIn->WhenPressed(new TeleOpClawWheels);
-	ClawSolenoid->ToggleWhenPressed(new TeleOpClawArms);
+	ClawSolenoid->WhenPressed(new TeleOpClawArms);
+	ClimbingSolenoid->WhenPressed(new TeleOpClimb);
+	ClimbingRotatorSolenoid->WhenPressed(new TeleOpClimb);
+	//maybe toggle when pressed?
 }
 
 
@@ -59,6 +65,10 @@ double OI::GetOperatorAxis(int axis){
 	return (InputShape((float)operator_controller.GetRawAxis(axis)));
 }
 
-double OI::GetOperatorButton(int button){
+double OI::GetOperatorButton(int button) {
 	return operator_controller.GetRawButton(button);
+}
+
+double OI::GetDriverButton(int button) {
+	return driver_controller.GetRawButton(button);
 }
