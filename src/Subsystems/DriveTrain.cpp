@@ -15,7 +15,7 @@ void DriveTrain::InitDefaultCommand() {
 void DriveTrain::TankDrive(double left, double right) {
 	m_robotDrive.TankDrive(left, right);
 }
-
+/*
 void DriveTrain::ResetEncoder() {
 	m_EncLeft.Reset();
 	m_EncRight.Reset();
@@ -23,27 +23,29 @@ void DriveTrain::ResetEncoder() {
 
 double DriveTrain::EncoderDistance() {
 	m_EncLeft.SetSamplesToAverage(5);
-	m_EncLeft.SetDistancePerPulse(1.0 / 360.0 /** 2.0 * 3.1415 * 3.0*/);
+	m_EncLeft.SetDistancePerPulse(1.0 / 360.0 );
 	m_EncLeft.SetMinRate(1.0);
 
 	m_EncRight.SetSamplesToAverage(5);
-	m_EncRight.SetDistancePerPulse(1.0 / 360.0 /** 2.0 * 3.1415 * 3.0*/);
+	m_EncRight.SetDistancePerPulse(1.0 / 360.0 ;
 	m_EncRight.SetMinRate(1.0);
 
-	//encoder code from wpi
-	/*sampleEncoder->SetMaxPeriod(.1);
-	sampleEncoder->SetMinRate(10);
-	sampleEncoder->SetDistancePerPulse(5);
-	sampleEncoder->SetReverseDirection(true);
-	sampleEncoder->SetSamplesToAverage(7);*/
 
 	//will need to divide by 2 later
 	return m_EncLeft.GetDistance() + m_EncRight.GetDistance();
-};
+};*/
+
+void DriveTrain::ResetEncoders(){
+	m_leftMiddle.GetSensorCollection().SetQuadraturePosition(0, 10);
+	m_rightMiddle.GetSensorCollection().SetQuadraturePosition(0, 10);
+}
 
 float DriveTrain::ReturnDrivenInches(float radius){
 	m_leftMiddle.ConfigSelectedFeedbackSensor(ctre::phoenix::motorcontrol::QuadEncoder, 0, 0);
 	m_rightMiddle.ConfigSelectedFeedbackSensor(ctre::phoenix::motorcontrol::QuadEncoder, 0, 0);
+
+	m_leftMiddle.SetSensorPhase(true);
+	m_rightMiddle.SetSensorPhase(true);
 
 	float pi = 3.14159265;
     float circumference = 2 * pi * radius;
@@ -52,6 +54,9 @@ float DriveTrain::ReturnDrivenInches(float radius){
 
     float left_encoder = m_leftMiddle.GetSensorCollection().GetQuadraturePosition();
     float right_encoder = m_rightMiddle.GetSensorCollection().GetQuadraturePosition();
+    float left_velocity = m_leftMiddle.GetSensorCollection().GetQuadratureVelocity();
+
+    SmartDashboard::PutNumber("Left Encoder Velocity", left_velocity);
 
     SmartDashboard::PutNumber("LEFT ENCODER", left_encoder);
     SmartDashboard::PutNumber("RIGHT ENCODER", right_encoder);
@@ -64,8 +69,6 @@ float DriveTrain::ReturnDrivenInches(float radius){
     float distance_covered = circumference * revolutions;
     SmartDashboard::PutNumber("Distance in Inches", distance_covered);
     return distance_covered;
-	//temp
-	return radius;
 }
 
 // Put methods for controlling this subsystem

@@ -33,9 +33,10 @@ public:
 	DriveTrain();
 	void InitDefaultCommand();
 	void TankDrive(double left, double right);
-	double EncoderDistance();
+//	double EncoderDistance();
 	float ReturnDrivenInches(float radius);
-	void ResetEncoder();
+//	void ResetEncoder();
+	void ResetEncoders();
 };
 
 #endif  // DriveTrain_H

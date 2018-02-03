@@ -44,6 +44,5 @@ const int elevatorElevation = 9;
 const int elevatorLeftAxis = 1;
 
 //Rotator
-const int rotator_motor_1_id = 10;
-const int rotator_motor_2_id = 11;
+const int rotator_motor_id = 10;
 const int rotator_axis = 5;
