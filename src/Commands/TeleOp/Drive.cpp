@@ -15,17 +15,17 @@ void Drive::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void Drive::Execute() {
-	//Toggle between single stick and dual stick
+	//Cycles between drive modes
 	if (Robot::oi.GetDriverButton(driving_mode_button)) {
 		if (driving_mode == 1) {
 			driving_mode = 2;
 			frc::SmartDashboard::PutString("Driving Mode:", "Single Stick");
 		} else if (driving_mode == 2) {
 			driving_mode = 3;
-			frc::SmartDashboard::PutString("Driving Mode:", "Dual Sticks");
+			frc::SmartDashboard::PutString("Driving Mode:", "Single Stick 4 Zones");
 		} else {
 			driving_mode = 1;
-			frc::SmartDashboard::PutString("Driving Mode:", "Single Stick 4 Zones");
+			frc::SmartDashboard::PutString("Driving Mode:", "Dual Sticks");
 		}
 		while (Robot::oi.GetDriverButton(driving_mode_button)) {}
 	}
