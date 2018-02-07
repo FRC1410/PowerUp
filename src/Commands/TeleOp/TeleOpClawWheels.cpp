@@ -15,13 +15,13 @@ void TeleOpClawWheels::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void TeleOpClawWheels::Execute() {
-	if (Robot::oi.GetOperatorButton(6)) {
-		Robot::cubeclaw.ClawWheels(0.5, -0.5);
-		} else if (Robot::oi.GetOperatorButton(5)) {
-				Robot::cubeclaw.ClawWheels(-0.3, 0.3);
-		} else {
-				Robot::cubeclaw.ClawWheels(0, 0);
-		}
+	if (Robot::oi.GetOperatorButton(claw_wheels_in_button)) {
+		Robot::cubeclaw.ClawWheels(claw_wheels_intake, -claw_wheels_intake);
+	} else if (Robot::oi.GetOperatorButton(claw_wheels_out_button)) {
+		Robot::cubeclaw.ClawWheels(-claw_wheels_outtake, claw_wheels_outtake);
+	} else {
+		Robot::cubeclaw.ClawWheels(0, 0);
+	}
 }
 
 // Make this return true when this Command no longer needs to run execute()

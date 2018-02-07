@@ -7,10 +7,10 @@
 #include <Subsystems/CubeClaw.h>
 #include <Subsystems/Elevation.h>
 #include <Subsystems/Rotator.h>
+#include <Subsystems/Climber.h>
 #include <Commands/Command.h>
 #include <IterativeRobot.h>
 #include <SmartDashboard/SendableChooser.h>
-
 
 class Robot : public IterativeRobot {
 public:
@@ -19,9 +19,9 @@ public:
 	static CubeClaw cubeclaw;
 	static Elevation elevation;
 	static Rotator rotator;
+	static Climber climber;
 
 private:
-
 	void RobotInit() override;
 	void AutonomousInit() override;
 	void AutonomousPeriodic() override;

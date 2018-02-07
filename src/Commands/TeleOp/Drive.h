@@ -10,6 +10,13 @@ public:
 	bool IsFinished();
 	void End();
 	void Interrupted();
+private:
+	int exponent = 1;
+	int driving_mode = 1;
+	double d = 0;
+	double m = 0;
+	double x = 0;
+	double y = 0;
 };
 
 #endif  // Drive_H
