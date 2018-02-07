@@ -18,5 +18,5 @@ public:
 	void End() override;
 	void Interrupted() override;
 private:
-	bool toggle = true;
+	bool toggle = false;
 };
