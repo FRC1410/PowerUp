@@ -3,7 +3,7 @@
 
 #include "Commands/Command.h"
 
-class TeleOpClawWheels : public Command {
+class TeleOpClawWheels : public frc::Command {
 public:
 	TeleOpClawWheels();
 	void Initialize();

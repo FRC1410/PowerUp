@@ -22,7 +22,6 @@ public:
 	static Climber climber;
 
 private:
-	int choose;
 	void RobotInit() override;
 	void AutonomousInit() override;
 	void AutonomousPeriodic() override;
@@ -36,5 +35,4 @@ private:
 
 	std::unique_ptr<frc::Command> auto_command;
 	frc::SendableChooser<frc::Command*> auto_choice;
-	std::unique_ptr<std::string> auto_string;
 };

@@ -10,16 +10,6 @@ public:
 	bool IsFinished();
 	void End();
 	void Interrupted();
-private:
-	//Exponential
-
-	/*double d = 0;
-	double m = 0;
-	double x = 0;
-	double y = 0;*/
-
-	//double l = 0;
-	//double r = 0;
 };
 
 #endif  // Drive_H

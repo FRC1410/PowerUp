@@ -12,8 +12,6 @@ public:
 	bool IsFinished();
 	void End();
 	void Interrupted();
-private:
-	//double s = 0;
 };
 
 #endif  // TeleOpRotation_H
