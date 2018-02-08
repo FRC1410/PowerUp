@@ -8,7 +8,7 @@
 #include "WPILib.h"
 #include "RobotMap.h"
 #include <Encoder.h>
-
+#include <AHRS.h>
 
 class DriveTrain : public Subsystem {
 private:
