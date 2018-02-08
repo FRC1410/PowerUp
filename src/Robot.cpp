@@ -15,6 +15,7 @@ OI Robot::oi;
 CubeClaw Robot::cubeclaw;
 Elevation Robot::elevation;
 Rotator Robot::rotator;
+Climber Robot::climber;
 
 void Robot::RobotInit() {
 	// Show what command your subsystem is running on the SmartDashboard

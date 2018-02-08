@@ -1,10 +1,3 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2017-2018 FIRST. All Rights Reserved.                        */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 #include <Subsystems/CubeClaw.h>
 #include "../RobotMap.h"
 #include "../Commands/TeleOp/TeleOpClawArms.h"
@@ -18,7 +11,7 @@ void CubeClaw::InitDefaultCommand() {
 	SetDefaultCommand(new TeleOpClawArms());
 }
 
-frc::DoubleSolenoid & CubeClaw::GetSolenoid(){
+frc::DoubleSolenoid & CubeClaw::GetSolenoid() {
 	return claw_solenoid;
 }
 

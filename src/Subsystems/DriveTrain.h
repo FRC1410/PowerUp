@@ -7,27 +7,31 @@
 #include <ctre/Phoenix.h>
 #include "WPILib.h"
 #include "RobotMap.h"
+#include <Encoder.h>
+//#include <AHRS.h>
 
 
 class DriveTrain : public Subsystem {
 private:
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
-	WPI_TalonSRX m_leftFront{leftfrontDrive};
-	WPI_TalonSRX m_leftMiddle{leftmiddleDrive};
-	WPI_TalonSRX m_leftRear{leftrearDrive};
-	WPI_TalonSRX m_rightFront{rightfrontDrive};
-	WPI_TalonSRX m_rightMiddle{rightmiddleDrive};
-	WPI_TalonSRX m_rightRear{rightrearDrive};
+	WPI_TalonSRX m_leftFront{left_front_drive_id};
+	WPI_TalonSRX m_leftMiddle{left_middle_drive_id};
+	WPI_TalonSRX m_leftRear{left_back_drive_id};
+	WPI_TalonSRX m_rightFront{right_front_drive_id};
+	WPI_TalonSRX m_rightMiddle{right_middle_drive_id};
+	WPI_TalonSRX m_rightRear{right_back_drive_id};
+
 	frc::SpeedControllerGroup m_left{m_leftFront, m_leftMiddle, m_leftRear};
 	frc::SpeedControllerGroup m_right{m_rightFront, m_rightMiddle, m_rightRear};
 	frc::DifferentialDrive m_robotDrive{m_left, m_right};
-
 
 public:
 	DriveTrain();
 	void InitDefaultCommand();
 	void TankDrive(double left, double right);
+	float ReturnDrivenInches(float radius);
+	void ResetEncoders();
 };
 
 #endif  // DriveTrain_H
