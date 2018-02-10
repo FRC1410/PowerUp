@@ -35,4 +35,6 @@ private:
 
 	std::unique_ptr<frc::Command> auto_command;
 	frc::SendableChooser<frc::Command*> auto_choice;
+	std::string gameData;
+	frc::SendableChooser<std::string*> auto_string;
 };

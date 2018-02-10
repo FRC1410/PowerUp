@@ -11,6 +11,11 @@ void CubeClaw::InitDefaultCommand() {
 	SetDefaultCommand(new TeleOpClawArms());
 }
 
+int CubeClaw::BoxSwitch(){
+	frc::SmartDashboard::PutNumber("Box Button", BoxButton->Get());
+	return BoxButton->Get();
+}
+
 frc::DoubleSolenoid & CubeClaw::GetSolenoid() {
 	return claw_solenoid;
 }

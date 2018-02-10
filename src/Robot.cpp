@@ -1,5 +1,7 @@
 #include "Commands/Auto/AutoTimedDrive.h"
 #include "Commands/Auto/AutoEncodeDrive.h"
+#include "Commands/Auto/NavxTest.h"
+#include "Commands/Auto/AutoDoNothing.h"
 
 #include "Robot.h"
 
@@ -20,11 +22,27 @@ Climber Robot::climber;
 
 void Robot::RobotInit() {
 	// Show what command your subsystem is running on the SmartDashboard
-	frc::SmartDashboard::PutString("Auto", "Encoders Drive Forward");
+	//frc::SmartDashboard::PutString("Auto", "Encoders Drive Forward");
+	//frc::SmartDashboard::PutString("Auto", "NavX Test");
+	/*auto_choice.AddDefault("NavX Test (default)", new NavxTest);
+	auto_choice.AddObject("Encoders Drive Forward", new AutoEncodeDrive);
+	auto_choice.AddObject("Timed Drive Forward", new AutoTimedDrive);
+	frc::SmartDashboard::PutData("Auto Chooser", &auto_choice);*/
+	//auto_string.AddDefault("Timed Drive Forward", 0);
+	//auto_string.AddObject()
 }
 
 void Robot::AutonomousInit() {
-	auto_command.reset(new AutoEncodeDrive());
+	gameData = DriverStation::GetInstance().GetGameSpecificMessage();
+	if (gameData[0]== 'L'){
+		auto_command.reset(new AutoTimedDrive);
+	}
+	else if (gameData[0] == 'R'){
+		auto_command.reset(new NavxTest);
+	}
+	else{
+		auto_command.reset(new AutoDoNothing);
+	}
 
 	if (auto_command.get() != nullptr) {
 		auto_command->Start();

@@ -25,6 +25,7 @@ private:
 	frc::Joystick operator_controller{1};
 	frc::JoystickButton * ClawWheelsOut;
 	frc::JoystickButton * ClawWheelsIn;
+	frc::JoystickButton * ClawWheelsShoot;
 	frc::JoystickButton * ClawSolenoid;
 	frc::JoystickButton * ClimbingSolenoid;
 	frc::JoystickButton * ClimbingRotatorSolenoid;

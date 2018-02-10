@@ -1,4 +1,7 @@
-#include <Commands/TeleOp/TeleOpClawWheels.h>
+#include <Commands/TeleOp/TeleOpClawWheelsIn.h>
+#include <Commands/TeleOp/TeleOpClawWheelsOut.h>
+#include <Commands/TeleOp/TeleOpClawWheelsOff.h>
+#include <Commands/TeleOp/TeleOpShootCube.h>
 #include "OI.h"
 
 #include <WPILib.h>
@@ -28,16 +31,20 @@ const char inputShape[255] = {
 OI::OI() {
 	ClawWheelsOut = new frc::JoystickButton(&operator_controller, claw_wheels_out_button);
 	ClawWheelsIn = new frc::JoystickButton(&operator_controller, claw_wheels_in_button);
+	ClawWheelsShoot = new frc::JoystickButton(&operator_controller, claw_wheels_shoot_button);
 	ClawSolenoid = new frc::JoystickButton(&operator_controller, claw_arms_button);
 	ClimbingSolenoid = new frc::JoystickButton(&operator_controller, climb_button);
 	ClimbingRotatorSolenoid = new frc::JoystickButton(&operator_controller, climber_rotator_button);
 
-	ClawWheelsOut->WhenPressed(new TeleOpClawWheels);
-	ClawWheelsIn->WhenPressed(new TeleOpClawWheels);
+	ClawWheelsOut->WhenPressed(new TeleOpClawWheelsOut);
+	ClawWheelsOut->WhenReleased(new TeleOpClawWheelsOff);
+	ClawWheelsIn->WhenPressed(new TeleOpClawWheelsIn);
+	ClawWheelsIn->WhenReleased(new TeleOpClawWheelsOff);
+	ClawWheelsShoot->WhenPressed(new TeleOpShootCube);
+	ClawWheelsShoot->WhenReleased(new TeleOpClawWheelsOff);
 	ClawSolenoid->WhenPressed(new TeleOpClawArms);
 	ClimbingSolenoid->WhenPressed(new TeleOpClimb);
 	ClimbingRotatorSolenoid->WhenPressed(new TeleOpClimberRotate);
-	//maybe toggle when pressed?
 }
 
 

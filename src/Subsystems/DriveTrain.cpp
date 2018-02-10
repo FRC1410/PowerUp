@@ -16,6 +16,11 @@ void DriveTrain::TankDrive(double left, double right) {
 	m_robotDrive.TankDrive(left, right);
 }
 
+int DriveTrain::SmartDashboardnavX(){
+	SmartDashboard::PutNumber("navX angle",navx->GetAngle());
+	return navx->GetAngle();
+}
+
 float DriveTrain::ReturnDrivenInches(float radius){
 	m_leftMiddle.ConfigSelectedFeedbackSensor(ctre::phoenix::motorcontrol::QuadEncoder, 0, 0);
 	m_rightMiddle.ConfigSelectedFeedbackSensor(ctre::phoenix::motorcontrol::QuadEncoder, 0, 0);
@@ -41,9 +46,10 @@ float DriveTrain::ReturnDrivenInches(float radius){
     return distance_covered;
 }
 
-void DriveTrain::ResetEncoders() {
+void DriveTrain::ResetEncodersandNavX() {
 	m_leftMiddle.GetSensorCollection().SetQuadraturePosition(0, 10);
 	m_rightMiddle.GetSensorCollection().SetQuadraturePosition(0, 10);
+	navx->Reset();
 }
 
 // Put methods for controlling this subsystem

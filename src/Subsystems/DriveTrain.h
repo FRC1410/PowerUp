@@ -8,6 +8,7 @@
 #include "WPILib.h"
 #include "RobotMap.h"
 #include <Encoder.h>
+#include <AHRS.h>
 
 
 class DriveTrain : public Subsystem {
@@ -21,6 +22,8 @@ private:
 	WPI_TalonSRX m_rightMiddle{right_middle_drive_id};
 	WPI_TalonSRX m_rightRear{right_back_drive_id};
 
+	AHRS * navx = new AHRS(SPI::Port::kMXP);
+
 	frc::SpeedControllerGroup m_left{m_leftFront, m_leftMiddle, m_leftRear};
 	frc::SpeedControllerGroup m_right{m_rightFront, m_rightMiddle, m_rightRear};
 	frc::DifferentialDrive m_robotDrive{m_left, m_right};
@@ -30,7 +33,8 @@ public:
 	void InitDefaultCommand();
 	void TankDrive(double left, double right);
 	float ReturnDrivenInches(float radius);
-	void ResetEncoders();
+	void ResetEncodersandNavX();
+	int SmartDashboardnavX();
 };
 
 #endif  // DriveTrain_H

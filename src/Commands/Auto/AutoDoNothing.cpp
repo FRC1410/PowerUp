@@ -1,39 +1,34 @@
-#include "AutoEncodeDrive.h"
+#include "AutoDoNothing.h"
 #include "../../Robot.h"
-#include <SmartDashboard/SmartDashboard.h>
 
-AutoEncodeDrive::AutoEncodeDrive() {
+AutoDoNothing::AutoDoNothing() {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
 	Requires(&Robot::drivetrain);
 }
 
 // Called just before this Command runs the first time
-void AutoEncodeDrive::Initialize() {
-	Robot::drivetrain.ResetEncodersandNavX();
+void AutoDoNothing::Initialize() {
+
 }
 
 // Called repeatedly when this Command is scheduled to run
-void AutoEncodeDrive::Execute() {
-	Robot::drivetrain.TankDrive(0.5, 0.5);
+void AutoDoNothing::Execute() {
+	Robot::drivetrain.TankDrive(0, 0);
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool AutoEncodeDrive::IsFinished() {
-	if (Robot::drivetrain.ReturnDrivenInches(3) >= 12)
-	{
-		return true;
-	}
+bool AutoDoNothing::IsFinished() {
 	return false;
 }
 
 // Called once after isFinished returns true
-void AutoEncodeDrive::End() {
+void AutoDoNothing::End() {
 	Robot::drivetrain.TankDrive(0, 0);
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void AutoEncodeDrive::Interrupted() {
+void AutoDoNothing::Interrupted() {
 
 }
