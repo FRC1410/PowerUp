@@ -35,6 +35,7 @@ public:
 	float ReturnDrivenInches(float radius);
 	void ResetEncodersandNavX();
 	int SmartDashboardnavX();
+	void ConfigureEncoders();
 };
 
 #endif  // DriveTrain_H

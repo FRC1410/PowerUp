@@ -21,29 +21,23 @@ Rotator Robot::rotator;
 Climber Robot::climber;
 
 void Robot::RobotInit() {
-	// Show what command your subsystem is running on the SmartDashboard
 	//frc::SmartDashboard::PutString("Auto", "Encoders Drive Forward");
-	//frc::SmartDashboard::PutString("Auto", "NavX Test");
-	/*auto_choice.AddDefault("NavX Test (default)", new NavxTest);
-	auto_choice.AddObject("Encoders Drive Forward", new AutoEncodeDrive);
-	auto_choice.AddObject("Timed Drive Forward", new AutoTimedDrive);
-	frc::SmartDashboard::PutData("Auto Chooser", &auto_choice);*/
-	//auto_string.AddDefault("Timed Drive Forward", 0);
-	//auto_string.AddObject()
+	frc::SmartDashboard::PutString("Auto L", "NavX Test");
+	frc::SmartDashboard::PutString("Auto R", "Auto Encode Drive");
+	frc::SmartDashboard::PutString("Auto other", "Auto Do Nothing");
 }
 
 void Robot::AutonomousInit() {
-	gameData = DriverStation::GetInstance().GetGameSpecificMessage();
-	if (gameData[0]== 'L'){
-		auto_command.reset(new AutoTimedDrive);
-	}
-	else if (gameData[0] == 'R'){
+	gameData = frc::DriverStation::GetInstance().GetGameSpecificMessage();
+	frc::SmartDashboard::PutString("Game Data", gameData);
+
+	if (gameData[0] == 'L'){
 		auto_command.reset(new NavxTest);
-	}
-	else{
+	}else if (gameData[0] == 'R'){
+		auto_command.reset(new AutoEncodeDrive);
+	}else{
 		auto_command.reset(new AutoDoNothing);
 	}
-
 	if (auto_command.get() != nullptr) {
 		auto_command->Start();
 	}
@@ -59,6 +53,7 @@ void Robot::TeleopInit() {
 	if (auto_command != nullptr) {
 		auto_command->Cancel();
 	}
+	drivetrain.ResetEncodersandNavX();
 	std::cout << "Starting Teleop" << std::endl;
 }
 
@@ -73,7 +68,8 @@ void Robot::DisabledInit() {
 }
 
 void Robot::DisabledPeriodic() {
-
+//	frc::SmartDashboard::PutString("Game Data", gameData);
+//	frc::Scheduler::GetInstance()->Run();
 }
 
 /**

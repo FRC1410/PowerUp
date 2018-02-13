@@ -1,11 +1,13 @@
 #pragma once
 
+//for encoders left is inverted
+
 //DriveBase motors
 const int left_front_drive_id = 1;
 const int right_front_drive_id = 2;
-const int left_middle_drive_id = 3;
+const int left_middle_drive_id = 5;//was 3
 const int right_middle_drive_id = 4;
-const int left_back_drive_id = 5;
+const int left_back_drive_id = 3;//was 5
 const int right_back_drive_id = 6;
 
 //Elevator motor
@@ -34,5 +36,5 @@ const int climber_rotator_button = 4;
 
 
 const float claw_wheels_outtake = 0.5;
-const float claw_wheels_intake = 0.5;
+const float claw_wheels_intake = 1.0;
 const float claw_wheels_shoot = 1.0;
