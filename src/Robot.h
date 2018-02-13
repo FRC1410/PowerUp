@@ -11,6 +11,7 @@
 #include <Commands/Command.h>
 #include <IterativeRobot.h>
 #include <SmartDashboard/SendableChooser.h>
+#include "math.h"
 
 class Robot : public IterativeRobot {
 public:
@@ -35,4 +36,5 @@ private:
 
 	std::unique_ptr<frc::Command> auto_command;
 	frc::SendableChooser<frc::Command*> auto_choice;
+	std::string gameData;
 };

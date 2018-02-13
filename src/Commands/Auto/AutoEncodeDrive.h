@@ -2,6 +2,7 @@
 #define AutoEncodeDrive_H
 
 #include <Commands/Command.h>
+#include <Timer.h>
 
 class AutoEncodeDrive : public frc::Command {
 public:
@@ -11,6 +12,8 @@ public:
 	bool IsFinished();
 	void End();
 	void Interrupted();
+private:
+	frc::Timer * timer;
 };
 
 #endif  // AutoEncodeDrive_H

@@ -15,73 +15,58 @@ void Drive::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void Drive::Execute() {
-	//Cycles between drive modes
 	if (Robot::oi.GetDriverButton(driving_mode_button)) {
-		if (driving_mode == 1) {
-			driving_mode = 2;
-			frc::SmartDashboard::PutString("Driving Mode:", "Single Stick");
-		} else if (driving_mode == 2) {
-			driving_mode = 3;
-			frc::SmartDashboard::PutString("Driving Mode:", "Single Stick 4 Zones");
-		} else {
-			driving_mode = 1;
-			frc::SmartDashboard::PutString("Driving Mode:", "Dual Sticks");
+		if (rWasPressed == false) {
+			if (driving_mode == 1) {
+				driving_mode = 2;
+				frc::SmartDashboard::PutString("Driving Mode:", "Single Stick");
+			} else if (driving_mode == 2) {
+				driving_mode = 3;
+				frc::SmartDashboard::PutString("Driving Mode:", "Single Stick 4 Zones");
+			} else {
+				driving_mode = 1;
+				frc::SmartDashboard::PutString("Driving Mode:", "Dual Sticks");
+			}
 		}
-		while (Robot::oi.GetDriverButton(driving_mode_button)) {}
+		rWasPressed = true;
+	} else {
+		rWasPressed = false;
 	}
 
 	//Cycles through exponents 1 - 4
 	if (Robot::oi.GetDriverButton(exponential_driving_button)) {
-		exponent = ((exponent % 4) + 1);
-		frc::SmartDashboard::PutNumber("Exponent:", exponent);
-		while (Robot::oi.GetDriverButton(exponential_driving_button)) {}
+		if (lWasPressed == false) {
+			exponent = ((exponent % 4) + 1);
+			frc::SmartDashboard::PutNumber("Exponent:", exponent);
+		}
+		lWasPressed = true;
+	} else {
+		lWasPressed = false;
 	}
+
+		if (Robot::oi.GetDriverButton(deadzone_increase_button)) {
+		if (deadzone < 1) {
+			deadzone += 0.001;
+		}
+	}
+
+	if (Robot::oi.GetDriverButton(deadzone_decrease_button)) {
+		if (deadzone > 0) {
+			deadzone -= 0.001;
+		}
+	}
+
+	frc::SmartDashboard::PutNumber("Deadzone %:", deadzone * 100);
+
+	Robot::oi.PassDeadzone(deadzone);
 
 	//Driving
 
 	if (driving_mode == 1) {
 		//x is left, y is right
-		x = Robot::oi.GetDriveAxis(tankLeftAxis);
-		y = Robot::oi.GetDriveAxis(tankRightAxis);
-		//Exponential modifier for left and right axis;
-		switch (exponent) {
-		    case 2:
-		        if (x > 0) {
-		            x = (x + pow(x, 2))/2;
-		        } else {
-		            x = (x - pow(x, 2))/2;
-		        }
-		        if (y > 0) {
-		        	y = (y + pow(y, 2))/2;
-		        } else {
-		        	y = (y - pow(y, 2))/2;
-		        }
-		    	break;
-		    case 3:
-		        if (x > 0) {
-		            x = (x + pow(x, 2) + pow(x, 3))/3;
-		        } else {
-		            x = (x - pow(x, 2) + pow(x, 3))/3;
-		        }
-		        if (y > 0) {
-		        	y = (y + pow(y, 2) + pow(y, 3))/3;
-		        } else {
-		        	y = (y - pow(y, 2) + pow(y, 3))/3;
-		        }
-		    	break;
-		    case 4:
-		    	if (x > 0) {
-		            x = (x + pow(x, 2) + pow(x, 3) + pow(x, 4))/4;
-		   	    } else {
-		  	        x = (x - pow(x, 2) + pow(x, 3) - pow(x, 4))/4;
-			    }
-		    	if (y > 0) {
-		    		y = (y + pow(y, 2) + pow(y, 3) + pow(y, 4))/4;
-		    	} else {
-		    		y = (y - pow(y, 2) + pow(y, 3) - pow(y, 4))/4;
-		    	}
-		    	break;
-		}
+		y = Robot::oi.ApplyExponent(Robot::oi.GetDriveAxis(tankRightAxis), exponent);
+		x = Robot::oi.ApplyExponent(Robot::oi.GetDriveAxis(tankLeftAxis), exponent);
+
 		Robot::drivetrain.TankDrive(x, y);
 	} else {
 		//Getting dimensions, if magnitude is more than one set it to one and adjust x and y with the same ratio
@@ -94,37 +79,10 @@ void Drive::Execute() {
 			y = Robot::oi.GetDriveAxis(tank_y_axis);
 		}
 		m = sqrt(pow(x, 2) + pow(y, 2));
+		m = Robot::oi.ApplyExponent(m, exponent);
 
-		//Exponential modifier for magnitude
-		switch (exponent) {
-		    case 2:
-		    if (m > 0) {
-		            m = (m + pow(m, 2))/2;
-		        } else {
-		            m = (m - pow(m, 2))/2;
-		        }
-		    	break;
-		    case 3:
-		        if (m > 0) {
-		            m = (m + pow(m, 2) + pow(m, 3))/3;
-		        } else {
-		            m = (m - pow(m, 2) + pow(m, 3))/3;
-		        }
-		    	break;
-		    case 4:
-		    	if (m > 0) {
-		            m = (m + pow(m, 2) + pow(m, 3) + pow(m, 4))/4;
-		        } else {
-		            m = (m - pow(m, 2) + pow(m, 3) - pow(m, 4))/4;
-		        }
-		    	break;
-		}
-		//Convert x and y into degrees
-		if (x >= 0) {
-		    d = 90 - (atan(y/x))*(180/3.14159);
-		} else {
-		    d = 270 - (atan(y/x))*(180/3.14159);
-		}
+			d = Robot::oi.GetDriveDirection(x, y);
+
 		if (driving_mode == 2) {
 		//Make the program not blow up when dividing by 0
 			if (x == 0) {
@@ -163,6 +121,7 @@ void Drive::Execute() {
 		}
 	}
 	//Prints encoder distance to SmartDashboard
+	Robot::drivetrain.SmartDashboardnavX();
 	Robot::drivetrain.ReturnDrivenInches(3);
 }
 
