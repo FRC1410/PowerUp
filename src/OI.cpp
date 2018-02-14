@@ -39,20 +39,28 @@ void OI::PassDeadzone(double passedDeadzone) {
 	deadzone = passedDeadzone;
 }
 
-double OI::InputShape(double userValue, int axis) {
+double OI::InputShape(double userValue, int axis, int controller) {
 	if (axis == 1 || axis == 5) {
-		rawMagnitude = sqrt(pow(axis, 2) + pow(axis - 1, 2));
+		if (controller == 0) {
+			rawMagnitude = sqrt(pow(driver_controller.GetRawAxis(axis), 2) + pow(driver_controller.GetRawAxis(axis - 1), 2));
+		} else {
+			rawMagnitude = sqrt(pow(operator_controller.GetRawAxis(axis), 2) + pow(operator_controller.GetRawAxis(axis - 1), 2));
+		}
 		if (rawMagnitude <= deadzone) {
 			return 0;
 		} else {
-			return ((rawMagnitude - deadzone)/(1 - deadzone)) * userValue;
+			return ((rawMagnitude - deadzone)/(1 - deadzone)) * (userValue/rawMagnitude);
 		}
 	} else if (axis == 0 || axis == 4) {
-		rawMagnitude = sqrt(pow(axis, 2) + pow(axis + 1, 2));
+		if (controller == 0) {
+			rawMagnitude = sqrt(pow(driver_controller.GetRawAxis(axis), 2) + pow(driver_controller.GetRawAxis(axis + 1), 2));
+		} else {
+			rawMagnitude = sqrt(pow(operator_controller.GetRawAxis(axis), 2) + pow(operator_controller.GetRawAxis(axis + 1), 2));
+		}
 		if (rawMagnitude <= deadzone) {
 			return 0;
 		} else {
-			return ((rawMagnitude - deadzone)/(1 - deadzone)) * userValue;
+			return ((rawMagnitude - deadzone)/(1 - deadzone)) * (userValue/rawMagnitude);
 		}
 	} else {
 		return userValue;
@@ -60,7 +68,7 @@ double OI::InputShape(double userValue, int axis) {
 }
 
 double OI::GetDriveAxis(int axis) {
-	return InputShape((double)driver_controller.GetRawAxis(axis), axis);
+	return InputShape((double)driver_controller.GetRawAxis(axis), axis, 0);
 }
 
 double OI::GetDriveDirection(double x, double y) {
@@ -100,7 +108,7 @@ double OI::ApplyExponent(double input, int exponent) {
 }
 
 double OI::GetOperatorAxis(int axis) {
-	return InputShape((double)operator_controller.GetRawAxis(axis), axis);
+	return InputShape((double)operator_controller.GetRawAxis(axis), axis, 1);
 }
 
 double OI::GetOperatorButton(int button) {

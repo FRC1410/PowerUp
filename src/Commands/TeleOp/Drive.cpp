@@ -44,15 +44,19 @@ void Drive::Execute() {
 		lWasPressed = false;
 	}
 
-		if (Robot::oi.GetDriverButton(deadzone_increase_button)) {
+	if (Robot::oi.GetDriverButton(deadzone_increase_button)) {
 		if (deadzone < 1) {
 			deadzone += 0.001;
+		} else {
+			deadzone = 1;
 		}
 	}
 
 	if (Robot::oi.GetDriverButton(deadzone_decrease_button)) {
 		if (deadzone > 0) {
 			deadzone -= 0.001;
+		} else {
+			deadzone = 0;
 		}
 	}
 
@@ -81,7 +85,7 @@ void Drive::Execute() {
 		m = sqrt(pow(x, 2) + pow(y, 2));
 		m = Robot::oi.ApplyExponent(m, exponent);
 
-			d = Robot::oi.GetDriveDirection(x, y);
+		d = Robot::oi.GetDriveDirection(x, y);
 
 		if (driving_mode == 2) {
 		//Make the program not blow up when dividing by 0

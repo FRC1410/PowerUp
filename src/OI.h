@@ -7,7 +7,7 @@
 class OI {
 public:
 	OI();
-	double InputShape(double userValue, int axis);
+	double InputShape(double userValue, int axis, int controller);
 	frc::Joystick& GetDriveJoystick();
 	void PassDeadzone(double passedDeadzone);
 	double GetDriveAxis(int axis);

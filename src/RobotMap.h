@@ -5,9 +5,9 @@
 //DriveBase motors
 const int left_front_drive_id = 1;
 const int right_front_drive_id = 2;
-const int left_middle_drive_id = 5;//was 3
+const int left_middle_drive_id = 3;
 const int right_middle_drive_id = 4;
-const int left_back_drive_id = 3;//was 5
+const int left_back_drive_id = 5;
 const int right_back_drive_id = 6;
 
 //Elevator motor
@@ -18,7 +18,7 @@ const int claw_left_wheel_id = 10;
 const int claw_right_wheel_id = 12;
 
 //Rotator
-const int rotator_motor_id = 9;//was 8
+const int rotator_motor_id = 8;//was 8
 
 //Controller Axis
 const int tankLeftAxis = 1;  //Left  stick y axis (driver)
