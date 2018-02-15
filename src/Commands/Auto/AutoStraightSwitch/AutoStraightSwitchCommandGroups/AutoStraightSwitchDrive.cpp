@@ -2,5 +2,5 @@
 #include "AutoStraightSwitchDriveCommands/AutoStraightSwitchDriveWheels.h"
 
 AutoStraightSwitchDrive::AutoStraightSwitchDrive() {
-	frc::CommandGroup::AddParallel(new AutoStraightSwitchDriveWheels(), 5.0);
+	frc::CommandGroup::AddParallel(new AutoStraightSwitchDriveWheels(), 10.0);
 }

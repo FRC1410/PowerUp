@@ -77,7 +77,7 @@ float DriveTrain::ReturnDrivenInches(float radius){
 
     float distance_covered = circumference * revolutions;
     SmartDashboard::PutNumber("AVG INCHES COVERED", distance_covered);
-    return distance_covered;
+    return right_distance_covered;
 }
 
 void DriveTrain::ResetEncodersandNavX() {

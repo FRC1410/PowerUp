@@ -3,6 +3,9 @@
 #include "Commands/Auto/NavxTest.h"
 #include "Commands/Auto/AutoDoNothing.h"
 
+#include "Commands/Auto/AutoStraightSwitch/AutoStraightSwitch.h"
+#include "Commands/Auto/AutoCrossBaseline/AutoCrossBaseline.h"
+
 #include "Robot.h"
 
 #include <iostream>
@@ -21,23 +24,26 @@ Rotator Robot::rotator;
 Climber Robot::climber;
 
 void Robot::RobotInit() {
-	//frc::SmartDashboard::PutString("Auto", "Encoders Drive Forward");
-	frc::SmartDashboard::PutString("Auto L", "NavX Test");
-	frc::SmartDashboard::PutString("Auto R", "Auto Encode Drive");
-	frc::SmartDashboard::PutString("Auto other", "Auto Do Nothing");
+	frc::SmartDashboard::PutString("Auto 0", "Forward Only");
+	frc::SmartDashboard::PutString("Auto 1", "Left - score left");
+	frc::SmartDashboard::PutNumber("Auto Selection", 0);
 }
 
 void Robot::AutonomousInit() {
+	Robot::climber.ClimberRotatorSolenoid().Set(frc::DoubleSolenoid::kReverse);
+	Robot::climber.ClimbSolenoid().Set(frc::DoubleSolenoid::kForward);
+	Robot::cubeclaw.GetSolenoid().Set(frc::DoubleSolenoid::kReverse);
+	frc::SmartDashboard::GetNumber("Auto Selection", 0);
 	gameData = frc::DriverStation::GetInstance().GetGameSpecificMessage();
-	frc::SmartDashboard::PutString("Game Data", gameData);
-
-	if (gameData[0] == 'L'){
-		auto_command.reset(new NavxTest);
-	}else if (gameData[0] == 'R'){
-		auto_command.reset(new AutoEncodeDrive);
-	}else{
-		auto_command.reset(new AutoDoNothing);
-	}
+	/*frc::SmartDashboard::PutString("Game Data", gameData);
+		if (gameData[0] == 'L'){
+			auto_command.reset(new AutoStraightSwitch);
+		}else if (gameData[0] == 'R'){
+			auto_command.reset(new AutoCrossBaseline);
+		}else{
+			auto_command.reset(new AutoDoNothing);
+		}*/
+	auto_command.reset(new AutoStraightSwitch);
 	if (auto_command.get() != nullptr) {
 		auto_command->Start();
 	}
