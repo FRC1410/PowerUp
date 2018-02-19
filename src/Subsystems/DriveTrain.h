@@ -10,7 +10,6 @@
 #include <Encoder.h>
 #include <AHRS.h>
 
-
 class DriveTrain : public Subsystem {
 private:
 	// It's desirable that everything possible under private except

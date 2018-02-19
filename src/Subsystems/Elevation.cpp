@@ -15,5 +15,13 @@ void Elevation::InitDefaultCommand() {
 void Elevation::ElevationWheel(double elevation_speed) {
 	m_elevator.Set(elevation_speed);
 }
-// Put methods for controlling this subsystem
-// here. Call these from Commands.
+
+bool Elevation::LimitSwitch(){
+	frc::SmartDashboard::PutNumber("Left Limit Switch", LeftButton->Get());
+	frc::SmartDashboard::PutNumber("Right Limit Switch", RightButton->Get());
+	if (LeftButton->Get() == false || RightButton->Get() == false) {
+		return false;
+	} else {
+		return true;
+	}
+}

@@ -15,12 +15,12 @@ void AutoStraightSwitchRotateClaw::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void AutoStraightSwitchRotateClaw::Execute() {
-	Robot::rotator.RotateClaw(0.6);
+	Robot::rotator.RotateClaw(1.0);
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool AutoStraightSwitchRotateClaw::IsFinished() {
-	if (timer->Get()>=1.6)
+	if (timer->Get() >= 2.4)
 	{
 		return true;
 	}

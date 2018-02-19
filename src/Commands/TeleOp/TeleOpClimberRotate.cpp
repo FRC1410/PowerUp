@@ -1,6 +1,5 @@
 #include "TeleOpClimberRotate.h"
 #include "../../Robot.h"
-#include "../../OI.h"
 
 TeleOpClimberRotate::TeleOpClimberRotate() {
 	// Use Requires() here to declare subsystem dependencies
@@ -17,9 +16,11 @@ void TeleOpClimberRotate::Execute() {
 	if (Robot::oi.GetOperatorButton(climber_rotator_button)) {
 		if (wasPressed == false) {
 			if (rotateToggle == false) {
+				frc::SmartDashboard::PutString("Slim Jim", "Reverse");
 				Robot::climber.ClimberRotatorSolenoid().Set(frc::DoubleSolenoid::kReverse);
 				rotateToggle = true;
 			} else {
+				frc::SmartDashboard::PutString("Slim Jim", "Forward");
 				Robot::climber.ClimberRotatorSolenoid().Set(frc::DoubleSolenoid::kForward);
 				rotateToggle = false;
 			}

@@ -1,6 +1,5 @@
 #include <Commands/TeleOp/TeleOpClimb.h>
 #include "../../Robot.h"
-#include "../../OI.h"
 
 TeleOpClimb::TeleOpClimb() {
 	// Use Requires() here to declare subsystem dependencies
@@ -18,9 +17,11 @@ void TeleOpClimb::Execute() {
 	if (Robot::oi.GetOperatorButton(climb_button)) {
 		if (wasPressed == false) {
 			if (toggle == false) {
+				frc::SmartDashboard::PutString("Jim", "Reverse");
 				Robot::climber.ClimbSolenoid().Set(frc::DoubleSolenoid::kReverse);
 				toggle = true;
 			} else {
+				frc::SmartDashboard::PutString("Jim", "Forward");
 				Robot::climber.ClimbSolenoid().Set(frc::DoubleSolenoid::kForward);
 				toggle = false;
 			}
