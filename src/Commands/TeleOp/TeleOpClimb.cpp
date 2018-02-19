@@ -16,13 +16,18 @@ void TeleOpClimb::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void TeleOpClimb::Execute() {
 	if (Robot::oi.GetOperatorButton(climb_button)) {
-		if (climbToggle == false) {
-			Robot::climber.ClimbSolenoid().Set(frc::DoubleSolenoid::kReverse);
-			climbToggle = true;
-		} else {
-			Robot::climber.ClimbSolenoid().Set(frc::DoubleSolenoid::kForward);
-			climbToggle = false;
-		} while(Robot::oi.GetOperatorButton(climb_button)){};
+		if (wasPressed == false) {
+			if (toggle == false) {
+				Robot::climber.ClimbSolenoid().Set(frc::DoubleSolenoid::kReverse);
+				toggle = true;
+			} else {
+				Robot::climber.ClimbSolenoid().Set(frc::DoubleSolenoid::kForward);
+				toggle = false;
+			}
+		}
+		wasPressed = true;
+	} else {
+		wasPressed = false;
 	}
 }
 

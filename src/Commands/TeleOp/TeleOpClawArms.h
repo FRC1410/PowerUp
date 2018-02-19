@@ -19,4 +19,5 @@ public:
 	void Interrupted() override;
 private:
 	bool toggle = false;
+	bool wasPressed = false;
 };

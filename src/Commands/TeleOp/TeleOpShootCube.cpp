@@ -14,7 +14,7 @@ void TeleOpShootCube::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void TeleOpShootCube::Execute() {
-	Robot::cubeclaw.ClawWheels(-claw_wheels_shoot, claw_wheels_shoot);
+	Robot::cubeclaw.ClawWheels(claw_wheels_shoot, -claw_wheels_shoot);
 }
 
 // Make this return true when this Command no longer needs to run execute()

@@ -13,7 +13,8 @@ public:
 	void End() override;
 	void Interrupted() override;
 private:
-	bool climbToggle = false;
+	bool toggle = false;
+	bool wasPressed = false;
 };
 
 #endif

@@ -4,7 +4,7 @@
 #include <Commands/CommandGroup.h>
 #include "WPILib.h"
 
-class AutoStraightSwitchClaw : public CommandGroup{
+class AutoStraightSwitchClaw : public CommandGroup {
 public:
 	AutoStraightSwitchClaw();
 };

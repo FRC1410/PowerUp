@@ -21,10 +21,10 @@ void AutoStraightSwitchRaiseElevator::Execute() {
 // Make this return true when this Command no longer needs to run execute()
 bool AutoStraightSwitchRaiseElevator::IsFinished() {
 	if (timer->Get()>=1.7)
-		{
-			return true;
-		}
-		return false;
+	{
+		return true;
+	}
+	return false;
 }
 
 // Called once after isFinished returns true

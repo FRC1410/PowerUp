@@ -15,7 +15,7 @@ void TeleOpClawWheelsOut::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void TeleOpClawWheelsOut::Execute() {
 	Robot::cubeclaw.BoxSwitch();
-	Robot::cubeclaw.ClawWheels(-claw_wheels_outtake, claw_wheels_outtake);
+	Robot::cubeclaw.ClawWheels(claw_wheels_outtake, -claw_wheels_outtake);
 }
 
 // Make this return true when this Command no longer needs to run execute()

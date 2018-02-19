@@ -20,7 +20,7 @@ void NavxTest::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool NavxTest::IsFinished() {
-	if (Robot::drivetrain.SmartDashboardnavX()<=-90){
+	if (Robot::drivetrain.SmartDashboardnavX()<=-90) {
 		return true;
 	}
 	return false;

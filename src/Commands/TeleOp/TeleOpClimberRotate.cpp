@@ -15,14 +15,19 @@ void TeleOpClimberRotate::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void TeleOpClimberRotate::Execute() {
 	if (Robot::oi.GetOperatorButton(climber_rotator_button)) {
+		if (wasPressed == false) {
 			if (rotateToggle == false) {
 				Robot::climber.ClimberRotatorSolenoid().Set(frc::DoubleSolenoid::kReverse);
 				rotateToggle = true;
 			} else {
 				Robot::climber.ClimberRotatorSolenoid().Set(frc::DoubleSolenoid::kForward);
 				rotateToggle = false;
-			} while(Robot::oi.GetOperatorButton(climber_rotator_button)){};
+			}
 		}
+		wasPressed = true;
+	} else {
+		wasPressed = false;
+	}
 }
 
 // Make this return true when this Command no longer needs to run execute()

@@ -14,6 +14,7 @@ public:
 	void Interrupted();
 private:
 	bool rotateToggle = false;
+	bool wasPressed = false;
 };
 
 #endif  // TeleOpClimberRotate_H

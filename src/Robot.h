@@ -22,6 +22,7 @@ public:
 	static Climber climber;
 
 private:
+	int mode = 0;
 	void RobotInit() override;
 	void AutonomousInit() override;
 	void AutonomousPeriodic() override;

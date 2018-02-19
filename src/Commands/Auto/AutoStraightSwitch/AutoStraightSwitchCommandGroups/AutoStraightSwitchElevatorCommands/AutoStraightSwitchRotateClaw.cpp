@@ -21,10 +21,10 @@ void AutoStraightSwitchRotateClaw::Execute() {
 // Make this return true when this Command no longer needs to run execute()
 bool AutoStraightSwitchRotateClaw::IsFinished() {
 	if (timer->Get()>=1.6)
-		{
-			return true;
-		}
-		return false;
+	{
+		return true;
+	}
+	return false;
 }
 
 // Called once after isFinished returns true

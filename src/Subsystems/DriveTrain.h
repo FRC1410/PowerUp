@@ -23,6 +23,7 @@ private:
 	WPI_TalonSRX m_rightRear{right_back_drive_id};
 
 	AHRS * navx = new AHRS(SPI::Port::kMXP);
+	AnalogInput * PressureInput = new AnalogInput(3);
 
 	frc::SpeedControllerGroup m_left{m_leftFront, m_leftMiddle, m_leftRear};
 	frc::SpeedControllerGroup m_right{m_rightFront, m_rightMiddle, m_rightRear};
@@ -36,6 +37,7 @@ public:
 	void ResetEncodersandNavX();
 	int SmartDashboardnavX();
 	void ConfigureEncoders();
+	void GetPressure();
 };
 
 #endif  // DriveTrain_H
