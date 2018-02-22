@@ -11,6 +11,9 @@ public:
 	Rotator();
 	void InitDefaultCommand();
 	void RotateClaw(double rotate_speed);
+	void ConfigureEncoder();
+	void ResetEncoder();
+	double ReturnRotatorAngle();
 private:
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities

@@ -7,9 +7,7 @@
 #include <ctre/Phoenix.h>
 #include "WPILib.h"
 #include "RobotMap.h"
-#include <Encoder.h>
 #include <AHRS.h>
-
 
 class DriveTrain : public Subsystem {
 private:
@@ -33,9 +31,9 @@ public:
 	DriveTrain();
 	void InitDefaultCommand();
 	void TankDrive(double left, double right);
-	float ReturnDrivenInches(float radius);
+	double ReturnDrivenInches(float radius);
 	void ResetEncodersandNavX();
-	int SmartDashboardnavX();
+	double SmartDashboardnavX();
 	void ConfigureEncoders();
 	void GetPressure();
 };

@@ -16,7 +16,7 @@ void DriveTrain::TankDrive(double left, double right) {
 	m_robotDrive.TankDrive(left, right);
 }
 
-int DriveTrain::SmartDashboardnavX() {
+double DriveTrain::SmartDashboardnavX() {
 	SmartDashboard::PutNumber("navX angle",navx->GetAngle());
 	return navx->GetAngle();
 }
@@ -30,7 +30,7 @@ void DriveTrain::ConfigureEncoders() {
 
 }
 
-float DriveTrain::ReturnDrivenInches(float radius) {
+double DriveTrain::ReturnDrivenInches(float radius) {
 	float pi = 3.14159265;
     float circumference = 2 * pi * radius;
     float ticks_per_revolution = 256;//was 1024 //was 360

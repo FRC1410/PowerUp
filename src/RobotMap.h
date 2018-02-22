@@ -36,10 +36,12 @@ const int climber_rotator_button = 4;   //Y button     (operator)
 const int claw_wheels_out_button = 5;   //Left bumper  (operator)
 const int claw_wheels_in_button = 6;    //Right bumper (operator)
 
-const float claw_intake_left = 0.9;
-const float claw_intake_right = 1.0;
-const float claw_wheels_outtake = 0.5;
-const float claw_wheels_shoot = 1.0;
+const double claw_intake_left = 0.9;
+const double claw_intake_right = 1.0;
+const double claw_wheels_outtake = 0.5;
+const double claw_wheels_shoot = 1.0;
+
+const double rotator_speed = 1.0;
 
 //Driver Controller Buttons
 const int deadzone_increase_button = 1;   //A button     (driver)

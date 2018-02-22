@@ -12,11 +12,13 @@ TeleOpRotation::TeleOpRotation() {
 
 // Called just before this Command runs the first time
 void TeleOpRotation::Initialize() {
-
+	Robot::rotator.ConfigureEncoder();
+	Robot::rotator.ResetEncoder();
 }
 
 // Called repeatedly when this Command is scheduled to run
 void TeleOpRotation::Execute() {
+	Robot::rotator.ReturnRotatorAngle();
 	Robot::rotator.RotateClaw(Robot::oi.GetOperatorAxis(rotator_axis));
 }
 

@@ -19,13 +19,14 @@ void TeleOpClawArms::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
 void TeleOpClawArms::Execute() {
-	Robot::cubeclaw.BoxSwitch();
 	if(Robot::oi.GetOperatorButton(claw_arms_button)) {
 		if (wasPressed == false) {
 			if (toggle == false) {
+				frc::SmartDashboard::PutString("Claw Arms", "Reverse");
 				Robot::cubeclaw.GetSolenoid().Set(frc::DoubleSolenoid::kReverse);
 				toggle = true;
 			} else {
+				frc::SmartDashboard::PutString("Claw Arms", "Forward");
 				Robot::cubeclaw.GetSolenoid().Set(frc::DoubleSolenoid::kForward);
 				toggle = false;
 			}
