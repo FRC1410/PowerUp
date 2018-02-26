@@ -7,10 +7,11 @@
 #include <Subsystems/CubeClaw.h>
 #include <Subsystems/Elevation.h>
 #include <Subsystems/Rotator.h>
+#include <Subsystems/Climber.h>
 #include <Commands/Command.h>
 #include <IterativeRobot.h>
 #include <SmartDashboard/SendableChooser.h>
-
+#include <SmartDashboard/SmartDashboard.h>
 
 class Robot : public IterativeRobot {
 public:
@@ -19,9 +20,10 @@ public:
 	static CubeClaw cubeclaw;
 	static Elevation elevation;
 	static Rotator rotator;
+	static Climber climber;
 
 private:
-
+	int mode = 0;
 	void RobotInit() override;
 	void AutonomousInit() override;
 	void AutonomousPeriodic() override;
@@ -35,4 +37,5 @@ private:
 
 	std::unique_ptr<frc::Command> auto_command;
 	frc::SendableChooser<frc::Command*> auto_choice;
+	std::string gameData;
 };

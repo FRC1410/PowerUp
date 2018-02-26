@@ -19,18 +19,21 @@ void TeleOpClawArms::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
 void TeleOpClawArms::Execute() {
-	if (Robot::oi.GetOperatorButton(1))
-	{
-				if (toggle == false) {
-					Robot::cubeclaw.GetSolenoid().Set(frc::DoubleSolenoid::kReverse);
-					toggle = true;
-				} else {
-					Robot::cubeclaw.GetSolenoid().Set(frc::DoubleSolenoid::kForward);
-					toggle = false;
-				}while(Robot::oi.GetOperatorButton(1)){};
-	}
-	else{
-				Robot::cubeclaw.GetSolenoid().Set(frc::DoubleSolenoid::kOff);
+	if(Robot::oi.GetOperatorButton(claw_arms_button)) {
+		if (wasPressed == false) {
+			if (toggle == false) {
+				frc::SmartDashboard::PutString("Claw Arms", "Reverse");
+				Robot::cubeclaw.GetSolenoid().Set(frc::DoubleSolenoid::kReverse);
+				toggle = true;
+			} else {
+				frc::SmartDashboard::PutString("Claw Arms", "Forward");
+				Robot::cubeclaw.GetSolenoid().Set(frc::DoubleSolenoid::kForward);
+				toggle = false;
+			}
+		}
+		wasPressed = true;
+	} else {
+		wasPressed = false;
 	}
 }
 
@@ -40,7 +43,8 @@ bool TeleOpClawArms::IsFinished() {
 }
 
 // Called once after isFinished returns true
-void TeleOpClawArms::End() {}
+void TeleOpClawArms::End() {
+}
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
