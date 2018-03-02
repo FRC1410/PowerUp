@@ -11,7 +11,6 @@
 #include <Commands/Command.h>
 #include <IterativeRobot.h>
 #include <SmartDashboard/SendableChooser.h>
-#include <SmartDashboard/SmartDashboard.h>
 
 class Robot : public IterativeRobot {
 public:

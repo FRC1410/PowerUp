@@ -7,7 +7,9 @@
 #include <ctre/Phoenix.h>
 #include "WPILib.h"
 #include "RobotMap.h"
+#include <Encoder.h>
 #include <AHRS.h>
+
 
 class DriveTrain : public Subsystem {
 private:
@@ -21,19 +23,20 @@ private:
 	WPI_TalonSRX m_rightRear{right_back_drive_id};
 
 	AHRS * navx = new AHRS(SPI::Port::kMXP);
-	AnalogInput * PressureInput = new AnalogInput(3);
 
 	frc::SpeedControllerGroup m_left{m_leftFront, m_leftMiddle, m_leftRear};
 	frc::SpeedControllerGroup m_right{m_rightFront, m_rightMiddle, m_rightRear};
 	frc::DifferentialDrive m_robotDrive{m_left, m_right};
 
+	AnalogInput * PressureInputNormal = new AnalogInput(0);
+
 public:
 	DriveTrain();
 	void InitDefaultCommand();
 	void TankDrive(double left, double right);
-	double ReturnDrivenInches(float radius);
+	float ReturnDrivenInches(float radius);
 	void ResetEncodersandNavX();
-	double SmartDashboardnavX();
+	int SmartDashboardnavX();
 	void ConfigureEncoders();
 	void GetPressure();
 };
