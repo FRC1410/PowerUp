@@ -15,7 +15,6 @@ void Drive::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void Drive::Execute() {
-	Robot::drivetrain.GetPressure();
 	//Cycles between driving modes
 	if (Robot::oi.GetDriverButton(driving_mode_button)) {
 		if (rWasPressed == false) {
@@ -151,6 +150,7 @@ void Drive::Execute() {
 	//Prints encoder distance to SmartDashboard
 	Robot::drivetrain.SmartDashboardnavX();
 	Robot::drivetrain.ReturnDrivenInches(3);
+	Robot::drivetrain.GetPressure();
 }
 
 // Make this return true when this Command no longer needs to run execute()

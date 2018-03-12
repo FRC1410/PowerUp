@@ -2,10 +2,12 @@
 #include "Commands/Auto/AutoEncodeDrive.h"
 #include "Commands/Auto/NavxTest.h"
 #include "Commands/Auto/AutoDoNothing.h"
-#include "Commands/Auto/AutoStraightSwitch.h"
-#include "Commands/Auto/AutoCenterScoreSwitchLeft.h"
-#include "Commands/Auto/AutoCrossBaseline.h"
-#include "Commands/Auto/AutoLeftSwitchLeft.h"
+
+#include "Commands/Auto/AutoStraightSwitch/AutoStraightSwitch.h"
+#include "Commands/Auto/AutoCenterScoreSwitchRight/AutoCenterScoreSwitchRight.h"
+#include "Commands/Auto/AutoLeftScoreSwitchLeft/AutoLeftScoreSwitchLeft.h"
+#include "Commands/Auto/AutoRightScoreSwitchRight/AutoRightScoreSwitchRight.h"
+#include "Commands/Auto/AutoCrossBaseline/AutoCrossBaseline.h"
 
 #include "Robot.h"
 
@@ -13,6 +15,7 @@
 
 #include <Commands/Scheduler.h>
 #include <LiveWindow/LiveWindow.h>
+#include <SmartDashboard/SmartDashboard.h>
 #include "OI.h"
 #include "Subsystems/DriveTrain.h"
 
@@ -24,142 +27,68 @@ Rotator Robot::rotator;
 Climber Robot::climber;
 
 void Robot::RobotInit() {
-	/*frc::SmartDashboard::PutString("Auto 0", "Forward Only");
-	frc::SmartDashboard::PutString("Auto 1", "Right - score right");
-	frc::SmartDashboard::PutString("Auto 2", "Left - score left");
-	frc::SmartDashboard::PutString("Auto 3", "Right - score both");
-	frc::SmartDashboard::PutNumber("Auto Selection", 0);*/
-	/*auto_string.AddDefault("driveforward", "driveforward");
-	auto_string.AddObject("scoreright", "scoreright");
-	auto_string.AddObject("scoreleft", "scoreleft");
-	frc::SmartDashboard::PutData("Auto Modes", &auto_string);*/
+	frc::SmartDashboard::PutString("Auto 0", "Forward Only");
+	frc::SmartDashboard::PutString("Auto 1", "Left - score left");
+	frc::SmartDashboard::PutNumber("Auto Selection", 0);
 }
 
 void Robot::AutonomousInit() {
-	//Reverse is for rotating it up (rotating outside frame perimeter)
 	Robot::climber.ClimberRotatorSolenoid().Set(frc::DoubleSolenoid::kReverse);
-	//Forward is closed
 	Robot::climber.ClimbSolenoid().Set(frc::DoubleSolenoid::kReverse);
-	//Reverse is closing
 	Robot::cubeclaw.GetSolenoid().Set(frc::DoubleSolenoid::kForward);
 
-	/*mode = frc::SmartDashboard::GetNumber("Auto Selection", 5);
-	frc::SmartDashboard::PutNumber("Auto Gotten", mode);
-	*/
-
-	gameData = frc::DriverStation::GetInstance().GetGameSpecificMessage();
-	frc::SmartDashboard::PutString("Game Data", gameData);
-	/*chosen_auto = (char *)frc::SmartDashboard::GetData("Auto Modes");
-	frc::SmartDashboard::PutString("Chosen Auto", chosen_auto);
-	if (chosen_auto == "driveforward"){
-		auto_command.reset(new AutoCrossBaseline);
-	} else if (chosen_auto == "scoreright"){
-		if (gameData[0] == 'L') {
-			auto_command.reset(new AutoCrossBaseline);
-			frc::SmartDashboard::PutString("Running Auto Mode", "Drive Forwards");
-		} else if (gameData[0] == 'R') {
-			auto_command.reset(new AutoStraightSwitch);
-			frc::SmartDashboard::PutString("Running Auto Mode", "Straight Switch");
-		} else {
-			auto_command.reset(new AutoDoNothing);
-			frc::SmartDashboard::PutString("Running Auto Mode", "Do Nothing");
-		}
-	} else if (chosen_auto == "scoreleft"){
-		if (gameData[0] == 'L'){
-			auto_command.reset(new AutoLeftSwitchLeft);
-			frc::SmartDashboard::PutString("Running Auto Mode", "Switch Left");
-		} else if (gameData [0] == 'R') {
-			auto_command.reset(new AutoCrossBaseline);
-			frc::SmartDashboard::PutString("Running Auto Mode", "Drive Forwards");
-		} else {
-			auto_command.reset(new AutoDoNothing);
-			frc::SmartDashboard::PutString("Running Auto Mode", "Do Nothing");
-		}
-	} else {
-		auto_command.reset(new AutoCrossBaseline);
-		frc::SmartDashboard::PutString("Auto working", "NO");
-	}*/
 	//KEY
-	/* 0 - Drive Forwards
-	 * 1 - Right - score right
-	 * 2 - left - score left
-	 * 3 - Right - score both
-	 * Default - Do nothings
-	 */
-	/*switch (mode) {
+	frc::SmartDashboard::PutString("Auto Mode 0", "Drive Forwards");
+	frc::SmartDashboard::PutString("Auto Mode 1", "Left Position");
+	frc::SmartDashboard::PutString("Auto Mode 2", "Right Position");
+	frc::SmartDashboard::PutString("Auto Mode 3", "Straight Switch");
+	frc::SmartDashboard::PutString("Auto Mode 4", "Center Position");
+	frc::SmartDashboard::PutString("Default", "Do Nothing");
+	switch (mode) {
 		case 0:
 			auto_command.reset(new AutoCrossBaseline);
 			frc::SmartDashboard::PutString("Running Auto Mode", "Drive Forwards");
 			break;
 		case 1:
 			if (gameData[0] == 'L') {
-				auto_command.reset(new AutoCrossBaseline);
-				frc::SmartDashboard::PutString("Running Auto Mode", "Drive Forwards");
+				auto_command.reset(new AutoLeftScoreSwitchLeft);
+				frc::SmartDashboard::PutString("Running Auto Mode", "Switch End Score (left side)");
 			} else if (gameData[0] == 'R') {
-				auto_command.reset(new AutoStraightSwitch);
-				frc::SmartDashboard::PutString("Running Auto Mode", "Straight Switch");
+				auto_command.reset(new AutoCrossBaseline);
+				frc::SmartDashboard::PutString("Running Auto Mode", "Drive Forwards (left side)");
 			} else {
 				auto_command.reset(new AutoDoNothing);
-				frc::SmartDashboard::PutString("Running Auto Mode", "Do Nothing");
+				frc::SmartDashboard::PutString("Running Auto Mode", "Do Nothing (left side)");
 			}
 			break;
 		case 2:
-			if (gameData[0] == 'L'){
-				auto_command.reset(new AutoLeftSwitchLeft);
-				frc::SmartDashboard::PutString("Running Auto Mode", "Switch Left");
-			} else if (gameData [0] == 'R') {
+			if (gameData[0] == 'R') {
+				auto_command.reset(new AutoRightScoreSwitchRight);
+				frc::SmartDashboard::PutString("Running Auto Mode", "Switch End Score (right side)");
+			} else if (gameData[0] == 'L') {
 				auto_command.reset(new AutoCrossBaseline);
-				frc::SmartDashboard::PutString("Running Auto Mode", "Drive Forwards");
+				frc::SmartDashboard::PutString("Running Auto Mode", "Drive Forwards (right side)");
 			} else {
 				auto_command.reset(new AutoDoNothing);
-				frc::SmartDashboard::PutString("Running Auto Mode", "Do Nothing");
+				frc::SmartDashboard::PutString("Running Auto Mode", "Do Nothing (right side)");
 			}
 			break;
 		case 3:
-			if (gameData[0] == 'L'){
-				auto_command.reset(new AutoCenterScoreSwitchLeft);
-				frc::SmartDashboard::PutString("Running Auto Mode", "Right score left");
-			} else if (gameData[0] == 'R'){
+			if (gameData[0] == 'R'){
 				auto_command.reset(new AutoStraightSwitch);
-				frc::SmartDashboard::PutString("Running Auto Mode", "Straight Switch");
-			} else{
+				frc::SmartDashboard::PutString("Running Auto Mode", "Straight Switch (right front of switch)");
+			} else if (gameData[0] == 'L'){
+				auto_command.reset(new AutoCrossBaseline);
+				frc::SmartDashboard::PutString("Running Auto Mode", "Drive Forward (right front of switch)");
+			} else {
 				auto_command.reset(new AutoDoNothing);
-				frc::SmartDashboard::PutString("Running Auto Mode", "Do Nothing");
+				frc::SmartDashboard::PutString("Running Auto Mode", "Do Nothing (right front of switch)");
 			}
 			break;
-		default:
-			auto_command.reset(new AutoCrossBaseline);
-			frc::SmartDashboard::PutString("Running Auto Mode", "Cross Baseline");
-	}*/
-
-	//DRIVE FORWARD
-	/*auto_command.reset(new AutoCrossBaseline);
-	frc::SmartDashboard::PutString("Running Auto Mode", "Drive Forwards");*/
-
-	//SCORE LEFT
-	if (gameData[0] == 'L'){
-		auto_command.reset(new AutoLeftSwitchLeft);
-		frc::SmartDashboard::PutString("Running Auto Mode", "Switch Left");
-	} else if (gameData [0] == 'R') {
-		auto_command.reset(new AutoCrossBaseline);
-		frc::SmartDashboard::PutString("Running Auto Mode", "Drive Forwards");
-	} else {
-		auto_command.reset(new AutoDoNothing);
-		frc::SmartDashboard::PutString("Running Auto Mode", "Do Nothing");
+		case 5:
+			auto_command.reset(new AutoDoNothing);
+			frc::SmartDashboard::PutString("Running Auto Mode", "Do Nothing");
 	}
-
-	//SCORE RIGHT
-	/*if (gameData[0] == 'L') {
-		auto_command.reset(new AutoCrossBaseline);
-		frc::SmartDashboard::PutString("Running Auto Mode", "Drive Forwards");
-	} else if (gameData[0] == 'R') {
-		auto_command.reset(new AutoStraightSwitch);
-		frc::SmartDashboard::PutString("Running Auto Mode", "Straight Switch");
-	} else {
-		auto_command.reset(new AutoDoNothing);
-		frc::SmartDashboard::PutString("Running Auto Mode", "Do Nothing");
-	}*/
-
 	if (auto_command.get() != nullptr) {
 		auto_command->Start();
 	}
@@ -192,6 +121,10 @@ void Robot::DisabledInit() {
 void Robot::DisabledPeriodic() {
 //	frc::SmartDashboard::PutString("Game Data", gameData);
 //	frc::Scheduler::GetInstance()->Run();
+	mode = frc::SmartDashboard::GetNumber("Auto Selection", 5);
+	frc::SmartDashboard::PutNumber("Auto Gotten", mode);
+	gameData = frc::DriverStation::GetInstance().GetGameSpecificMessage();
+	frc::SmartDashboard::PutString("Game Data", gameData);
 }
 
 /**

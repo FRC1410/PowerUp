@@ -16,7 +16,7 @@ void DriveTrain::TankDrive(double left, double right) {
 	m_robotDrive.TankDrive(left, right);
 }
 
-double DriveTrain::SmartDashboardnavX() {
+int DriveTrain::SmartDashboardnavX() {
 	SmartDashboard::PutNumber("navX angle",navx->GetAngle());
 	return navx->GetAngle();
 }
@@ -30,7 +30,7 @@ void DriveTrain::ConfigureEncoders() {
 
 }
 
-double DriveTrain::ReturnDrivenInches(float radius) {
+float DriveTrain::ReturnDrivenInches(float radius) {
 	float pi = 3.14159265;
     float circumference = 2 * pi * radius;
     float ticks_per_revolution = 256;//was 1024 //was 360
@@ -77,7 +77,9 @@ double DriveTrain::ReturnDrivenInches(float radius) {
 
     float distance_covered = circumference * revolutions;
     SmartDashboard::PutNumber("AVG INCHES COVERED", distance_covered);
-    return right_distance_covered;
+
+    //return right_distance_covered;
+    return distance_covered;
 }
 
 void DriveTrain::ResetEncodersandNavX() {
@@ -87,9 +89,7 @@ void DriveTrain::ResetEncodersandNavX() {
 }
 
 void DriveTrain::GetPressure() {
-	frc::SmartDashboard::PutNumber("Pressure", 250 * (PressureInput->GetVoltage()/5) - 25);
-	pressure = frc::SmartDashboard::GetNumber("Pressure", 0.0);
-	frc::SmartDashboard::PutNumber("read pressure", pressure);
+	frc::SmartDashboard::PutNumber("Pressure", 250 * (PressureInputNormal->GetVoltage()/5) - 25);
 }
 
 // Put methods for controlling this subsystem

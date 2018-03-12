@@ -15,3 +15,5 @@ void Elevation::InitDefaultCommand() {
 void Elevation::ElevationWheel(double elevation_speed) {
 	m_elevator.Set(elevation_speed);
 }
+// Put methods for controlling this subsystem
+// here. Call these from Commands.
