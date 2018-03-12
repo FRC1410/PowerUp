@@ -88,6 +88,8 @@ void DriveTrain::ResetEncodersandNavX() {
 
 void DriveTrain::GetPressure() {
 	frc::SmartDashboard::PutNumber("Pressure", 250 * (PressureInput->GetVoltage()/5) - 25);
+	pressure = frc::SmartDashboard::GetNumber("Pressure", 0.0);
+	frc::SmartDashboard::PutNumber("read pressure", pressure);
 }
 
 // Put methods for controlling this subsystem

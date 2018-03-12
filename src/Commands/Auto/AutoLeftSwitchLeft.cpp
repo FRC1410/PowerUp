@@ -32,7 +32,7 @@ void AutoLeftSwitchLeft::Execute() {
 			Robot::drivetrain.ResetEncodersandNavX();
 			Robot::drivetrain.TankDrive(-0.5, -0.5);
 
-			if (Robot::drivetrain.ReturnDrivenInches(3) >= 152) {
+			if (Robot::drivetrain.ReturnDrivenInches(3) >= 148) {
 				stage = 1;
 			}
 			break;
@@ -47,7 +47,7 @@ void AutoLeftSwitchLeft::Execute() {
 			Robot::drivetrain.ResetEncodersandNavX();
 			Robot::drivetrain.TankDrive(-0.5, -0.5);
 
-			if (Robot::drivetrain.ReturnDrivenInches(3) >= 19) {
+			if (Robot::drivetrain.ReturnDrivenInches(3) >= 22) {
 				stage = 3;
 			}
 			break;

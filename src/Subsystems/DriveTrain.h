@@ -26,6 +26,7 @@ private:
 	frc::SpeedControllerGroup m_left{m_leftFront, m_leftMiddle, m_leftRear};
 	frc::SpeedControllerGroup m_right{m_rightFront, m_rightMiddle, m_rightRear};
 	frc::DifferentialDrive m_robotDrive{m_left, m_right};
+	double pressure = 0;
 
 public:
 	DriveTrain();
