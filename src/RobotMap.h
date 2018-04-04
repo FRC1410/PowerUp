@@ -38,7 +38,7 @@ const int claw_wheels_in_button = 6;    //Right bumper (operator)
 
 const float claw_intake_left = 0.9;
 const float claw_intake_right = 1.0;
-const float claw_wheels_outtake = 0.5;
+const float claw_wheels_outtake = 0.75;
 const float claw_wheels_shoot = 1.0;
 
 //Driver Controller Buttons

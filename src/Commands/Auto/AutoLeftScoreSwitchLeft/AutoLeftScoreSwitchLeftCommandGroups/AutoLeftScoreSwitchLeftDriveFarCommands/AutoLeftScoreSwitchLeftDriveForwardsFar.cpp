@@ -15,7 +15,7 @@ void AutoLeftScoreSwitchLeftDriveForwardsFar::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void AutoLeftScoreSwitchLeftDriveForwardsFar::Execute() {
-	Robot::drivetrain.TankDrive(-0.5, -0.5);
+	Robot::drivetrain.TankDrive(-0.47, -0.5);
 }
 
 // Make this return true when this Command no longer needs to run execute()
