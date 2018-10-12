@@ -11,10 +11,11 @@ public:
 	Elevation();
 	void InitDefaultCommand();
 	void ElevationWheel(double elevation_speed);
+	bool LimitSwitch();
 private:
-	// It's desirable that everything possible under private except
-	// for methods that implement subsystem capabilities
-	WPI_TalonSRX m_elevator{elevatorElevation};
+	WPI_TalonSRX m_elevator{elevator_motor_id};
+	DigitalInput * LeftButton = new DigitalInput(0);
+	DigitalInput * RightButton = new DigitalInput(0);
 };
 
 #endif  // Elevation_H
