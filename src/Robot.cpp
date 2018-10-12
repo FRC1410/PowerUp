@@ -1,4 +1,11 @@
 #include "Commands/Auto/AutoTimedDrive.h"
+#include "Commands/Auto/AutoEncodeDrive.h"
+#include "Commands/Auto/NavxTest.h"
+#include "Commands/Auto/AutoDoNothing.h"
+#include "Commands/Auto/AutoStraightSwitch.h"
+#include "Commands/Auto/AutoCenterScoreSwitchLeft.h"
+#include "Commands/Auto/AutoCrossBaseline.h"
+#include "Commands/Auto/AutoLeftSwitchLeft.h"
 
 #include "Robot.h"
 
@@ -6,7 +13,6 @@
 
 #include <Commands/Scheduler.h>
 #include <LiveWindow/LiveWindow.h>
-#include <SmartDashboard/SmartDashboard.h>
 #include "OI.h"
 #include "Subsystems/DriveTrain.h"
 
@@ -15,34 +21,91 @@ OI Robot::oi;
 CubeClaw Robot::cubeclaw;
 Elevation Robot::elevation;
 Rotator Robot::rotator;
+Climber Robot::climber;
 
 void Robot::RobotInit() {
-	// Show what command your subsystem is running on the SmartDashboard
-	auto_choice.AddDefault("Timed Drive Forward (default)", new AutoTimedDrive());
-	frc::SmartDashboard::PutData("Auto Modes", &auto_choice);
+	frc::SmartDashboard::PutNumber("Auto Selection", 0);
 }
 
 void Robot::AutonomousInit() {
-//		auto_command.reset(auto_choice.GetSelected());
-		auto_command.reset(new AutoTimedDrive());
+	Robot::climber.ClimberRotatorSolenoid().Set(frc::DoubleSolenoid::kReverse);
+	Robot::climber.ClimbSolenoid().Set(frc::DoubleSolenoid::kReverse);
+	Robot::cubeclaw.GetSolenoid().Set(frc::DoubleSolenoid::kForward);
 
-		if (auto_command.get() != nullptr) {
-			auto_command->Start();
-		}
+	mode = frc::SmartDashboard::GetNumber("Auto Selection", 254);
+	frc::SmartDashboard::PutNumber("Auto Gotten", mode);
+
+	gameData = frc::DriverStation::GetInstance().GetGameSpecificMessage();
+	frc::SmartDashboard::PutString("Game Data", gameData);
+
+	//KEY
+	/* 0 - Drive Forwards
+	 * 1 - Straight Switch
+	 * 2 - Left - Score Left
+	 * Default - Do Nothing
+	 */
+
+	switch (mode) {
+		case 0:
+			auto_command.reset(new AutoCrossBaseline);
+			frc::SmartDashboard::PutString("Running Auto Mode", "Drive Forwards");
+			break;
+		case 1:
+			if (gameData[0] == 'L') {
+				auto_command.reset(new AutoCrossBaseline);
+				frc::SmartDashboard::PutString("Running Auto Mode", "Drive Forwards");
+			} else if (gameData[0] == 'R') {
+				auto_command.reset(new AutoStraightSwitch);
+				frc::SmartDashboard::PutString("Running Auto Mode", "Straight Switch");
+			} else {
+				auto_command.reset(new AutoDoNothing);
+				frc::SmartDashboard::PutString("Running Auto Mode", "Do Nothing");
+			}
+			break;
+		case 2:
+			if (gameData[0] == 'L'){
+				auto_command.reset(new AutoLeftSwitchLeft);
+				frc::SmartDashboard::PutString("Running Auto Mode", "Switch Left");
+			} else if (gameData [0] == 'R') {
+				auto_command.reset(new AutoCrossBaseline);
+				frc::SmartDashboard::PutString("Running Auto Mode", "Drive Forwards");
+			} else {
+				auto_command.reset(new AutoDoNothing);
+				frc::SmartDashboard::PutString("Running Auto Mode", "Do Nothing");
+			}
+			break;
+		case 3:
+			if (gameData[0] == 'L'){
+				auto_command.reset(new AutoCenterScoreSwitchLeft);
+				frc::SmartDashboard::PutString("Running Auto Mode", "Right score left");
+			} else if (gameData[0] == 'R'){
+				auto_command.reset(new AutoStraightSwitch);
+				frc::SmartDashboard::PutString("Running Auto Mode", "Straight Switch");
+			} else{
+				auto_command.reset(new AutoDoNothing);
+				frc::SmartDashboard::PutString("Running Auto Mode", "Do Nothing");
+			}
+			break;
+		default:
+			auto_command.reset(new AutoDoNothing);
+			frc::SmartDashboard::PutString("Running Auto Mode", "Do Nothing");
+	}
+	if (auto_command.get() != nullptr) {
+		auto_command->Start();
+	}
 }
 
 void Robot::AutonomousPeriodic() {
-	frc::Scheduler::GetInstance()->Run();
+	if (auto_command.get() != nullptr){
+		frc::Scheduler::GetInstance()->Run();
+	}
 }
 
 void Robot::TeleopInit() {
-	// This makes sure that the autonomous stops running when
-	// teleop starts running. If you want the autonomous to
-	// continue until interrupted by another command, remove
-	// this line or comment it out.
-	/*if (auto_command != nullptr) {
-			auto_command->Cancel();
-			}*/
+	if (auto_command != nullptr) {
+		auto_command->Cancel();
+	}
+	drivetrain.ResetEncodersandNavX();
 	std::cout << "Starting Teleop" << std::endl;
 }
 
@@ -57,7 +120,8 @@ void Robot::DisabledInit() {
 }
 
 void Robot::DisabledPeriodic() {
-
+//	frc::SmartDashboard::PutString("Game Data", gameData);
+//	frc::Scheduler::GetInstance()->Run();
 }
 
 /**
