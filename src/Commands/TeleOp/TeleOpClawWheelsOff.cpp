@@ -1,38 +1,35 @@
-#include "TeleOpRotation.h"
-
+#include "TeleOpClawWheelsOff.h"
 #include "../../Robot.h"
 #include "../../OI.h"
 
-
-TeleOpRotation::TeleOpRotation() {
+TeleOpClawWheelsOff::TeleOpClawWheelsOff() {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
-	Requires(&Robot::rotator);
+	Requires(&Robot::cubeclaw);
 }
 
 // Called just before this Command runs the first time
-void TeleOpRotation::Initialize() {
-	Robot::rotator.ConfigureEncoder();
-	Robot::rotator.ResetEncoder();
+void TeleOpClawWheelsOff::Initialize() {
+
 }
 
 // Called repeatedly when this Command is scheduled to run
-void TeleOpRotation::Execute() {
-	Robot::rotator.ReturnRotatorAngle();
-	Robot::rotator.RotateClaw(Robot::oi.GetOperatorAxis(rotator_axis));
+void TeleOpClawWheelsOff::Execute() {
+	Robot::cubeclaw.ClawWheels(0, 0);
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool TeleOpRotation::IsFinished() {
+bool TeleOpClawWheelsOff::IsFinished() {
 	return false;
 }
 
 // Called once after isFinished returns true
-void TeleOpRotation::End() {
+void TeleOpClawWheelsOff::End() {
 
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void TeleOpRotation::Interrupted() {
+void TeleOpClawWheelsOff::Interrupted() {
+
 }
