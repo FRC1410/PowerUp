@@ -3,10 +3,9 @@
 #ifndef CubeClaw_H
 #define CubeClaw_H
 
-
 #include <DoubleSolenoid.h>
 #include <ctre/Phoenix.h>
-#include "WPILIb.h"
+#include "WPILib.h"
 #include "RobotMap.h"
 
 class CubeClaw : public frc::Subsystem {
@@ -15,7 +14,6 @@ public:
 	void InitDefaultCommand() override;
 	frc::DoubleSolenoid & GetSolenoid();
 	void ClawWheels(float left_speed, float right_speed);
-
 private:
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities

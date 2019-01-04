@@ -12,6 +12,9 @@ public:
 	bool IsFinished();
 	void End();
 	void Interrupted();
+private:
+	bool startWasPressed = false;
+	int invert = 1; //1 is inverted, -1 is normal
 };
 
 #endif  // TeleOpRotation_H
