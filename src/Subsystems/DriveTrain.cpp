@@ -4,7 +4,11 @@
 #include <ctre/Phoenix.h>
 
 DriveTrain::DriveTrain() : Subsystem("DriveTrain") {
-
+	right_position = 0;
+	right_velocity = 0;
+	right_revolutions = 0;
+	right_inches = 0;
+	right_motor_velocity = 0;
 }
 
 
@@ -16,33 +20,32 @@ void DriveTrain::TankDrive(double left, double right) {
 	m_robotDrive.TankDrive(left, right);
 }
 
-void DriveTrain::ResetEncoders() {
-	m_leftBack.GetSensorCollection().SetQuadraturePosition(0, 10);
-	m_rightBack.GetSensorCollection().SetQuadraturePosition(0, 10);
+void DriveTrain::ConfigureEncoders() {
+	m_rightBack.ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Absolute, 0, 0);
 }
 
-float DriveTrain::ReturnDrivenInches(float radius){
-	m_leftBack.ConfigSelectedFeedbackSensor(ctre::phoenix::motorcontrol::QuadEncoder, 0, 0);
+void DriveTrain::ResetEncoders() {
+	m_rightBack.GetSensorCollection().SetQuadraturePosition(0, 0);
+}
 
-	m_leftBack.SetSensorPhase(true);
+double DriveTrain::ReturnDrivenInches(double radius) {
+	right_position = m_rightBack.GetSensorCollection().GetQuadraturePosition();
+	SmartDashboard::PutNumber("Right encoder position", right_position);
 
-	float pi = 3.14159265;
-    float circumference = 2 * pi * radius;
-    float ticks_per_revolution = 1024;
-    SmartDashboard::PutNumber("CIRCUMFERENCE", circumference);
+	right_revolutions = right_position / 4096;
+	right_inches = right_revolutions * 2 * 3.14159 * radius;
+	SmartDashboard::PutNumber("Right encoder revolutions", right_revolutions);
+	SmartDashboard::PutNumber("Right encoder inches", right_inches);
+	return right_inches;
+}
 
-    float left_encoder = m_leftBack.GetSensorCollection().GetQuadraturePosition();
+double DriveTrain::ReturnVelocity(double radius) {
+	right_velocity = m_rightBack.GetSensorCollection().GetQuadratureVelocity();
+	SmartDashboard::PutNumber("Right encoder velocity", right_velocity);
 
-    SmartDashboard::PutNumber("LEFT ENCODER", left_encoder);
-
-    float encoder_ticks = left_encoder;
-    SmartDashboard::PutNumber("Distance in Ticks", encoder_ticks);
-    float revolutions = (encoder_ticks / ticks_per_revolution);
-    SmartDashboard::PutNumber("REVOLUTIONS", revolutions);
-
-    float distance_covered = circumference * revolutions;
-    SmartDashboard::PutNumber("Distance in Inches", distance_covered);
-    return distance_covered;
+	right_motor_velocity = right_velocity * 2 * 3.14159 * radius / 4096 * 10;
+	SmartDashboard::PutNumber("Right motor velocity", right_motor_velocity);
+	return right_motor_velocity;
 }
 
 // Put methods for controlling this subsystem

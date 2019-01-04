@@ -20,7 +20,7 @@ void AutoEncodeDrive::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool AutoEncodeDrive::IsFinished() {
-	if (Robot::drivetrain.ReturnDrivenInches(4) >= 12)
+	if (Robot::drivetrain.ReturnDrivenInches(3) >= 12)
 	{
 		return true;
 	}

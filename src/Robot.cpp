@@ -1,5 +1,6 @@
 #include "Commands/Auto/AutoEncodeDrive.h"
 #include "Commands/Auto/AutoTimedDrive.h"
+#include "Commands/Auto/MeasureEncoders.h"
 
 #include "Robot.h"
 
@@ -7,7 +8,6 @@
 
 #include <Commands/Scheduler.h>
 #include <LiveWindow/LiveWindow.h>
-#include <SmartDashboard/SmartDashboard.h>
 #include "OI.h"
 #include "Subsystems/DriveTrain.h"
 
@@ -23,7 +23,7 @@ void Robot::RobotInit() {
 }
 
 void Robot::AutonomousInit() {
-	std::string autoSelected = frc::SmartDashboard::GetString("Auto Selector", "Default");
+	/*std::string autoSelected = frc::SmartDashboard::GetString("Auto Selector", "Default");
 	if (autoSelected == "Timed Drive Forward")
 	{
 		frc::SmartDashboard::PutString("Auto Selected", "Timed Drive Forward");
@@ -32,7 +32,8 @@ void Robot::AutonomousInit() {
 	else {
 		frc::SmartDashboard::PutString("Auto Selected", "Encoders Drive Forward (default)");
 		auto_command.reset(new AutoEncodeDrive());
-	}
+	}*/
+	auto_command.reset(new MeasureEncoders);
 	if (auto_command.get() != nullptr) {
 			auto_command->Start();
 	}
